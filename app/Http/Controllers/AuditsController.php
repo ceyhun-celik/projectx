@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Audit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AuditsController extends Controller
 {
@@ -14,8 +15,14 @@ class AuditsController extends Controller
      */
     public function index()
     {
-        $audits = Audit::select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'ip_address', 'created_at')->get();
-        return view('pages.audits.index', compact('audits'));
+        try {
+            $audits = Audit::select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'ip_address', 'created_at')
+                ->paginate(10);
+                
+            return view('pages.audits.index', compact('audits'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 
     /**
