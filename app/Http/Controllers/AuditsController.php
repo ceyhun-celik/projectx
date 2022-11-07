@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Audit;
 use Illuminate\Http\Request;
 
 class AuditsController extends Controller
@@ -13,7 +14,8 @@ class AuditsController extends Controller
      */
     public function index()
     {
-        return view('pages.audits.index');
+        $audits = Audit::select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'ip_address', 'created_at')->get();
+        return view('pages.audits.index', compact('audits'));
     }
 
     /**

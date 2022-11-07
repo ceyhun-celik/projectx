@@ -18,15 +18,19 @@ class UsersController extends Controller
     {
         extract($request->validated());
 
-        $users = User::select('id', 'name', 'email', 'created_at')
-            ->when($search, function($query, $search){
-                $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
-            })
-            ->orderBy('name')
-            ->paginate(10);
+        try {
+            $users = User::select('id', 'name', 'email', 'created_at')
+                ->when($search, function($query, $search){
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                })
+                ->orderBy('name')
+                ->paginate(10);
 
-        return view('pages.users.index', compact('users'));
+            return view('pages.users.index', compact('users'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 
     /**
