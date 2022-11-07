@@ -9,15 +9,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-input-success class="mb-4" />
 
-            <div class="flex items-center justify-end mb-4">
+            <div class="flex items-center justify-end gap-3 mb-4">
                 <form action="{{ route('users.index') }}" method="GET" class="flex justify-end">
                     <div class="flex items-center">
-                        <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Name or Email.." />
+                        <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Search.." />
                     </div>
                 </form>
+
+                <span>|</span>
     
                 <a href="{{ route('users.create') }}">
-                    <x-primary-button class="ml-3">
+                    <x-primary-button>
                         {{ __('Create') }}
                     </x-primary-button>
                 </a>
@@ -56,7 +58,7 @@
                                                 </x-primary-button>
                                             </a>
 
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('PUT')
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('DELETE')
                                                 <x-primary-button class="ml-3">
                                                     {{ __('Delete') }}
                                                 </x-primary-button>

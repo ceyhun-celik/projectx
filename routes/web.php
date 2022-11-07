@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    AuditsController,
     DashboardController,
     ManagementController,
     UsersController
@@ -27,7 +28,8 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('/', [ManagementController::class, 'index'])->name('management.index');
 
         Route::resources([
-            'users' => UsersController::class
+            'users' => UsersController::class,
+            'audits' => AuditsController::class
         ]);
     });
 

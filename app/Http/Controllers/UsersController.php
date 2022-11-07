@@ -63,7 +63,12 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $user = User::select('id', 'name', 'email', 'created_at')->find($id);
+            return view('pages.users.show', compact('user'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 
     /**
@@ -74,7 +79,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $user = User::select('id', 'name', 'email')->find($id);
+            return view('pages.users.edit', compact('user'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 
     /**
@@ -86,7 +96,18 @@ class UsersController extends Controller
      */
     public function update(UsersRequest $request, $id)
     {
-        //
+        $request = $request->validated();
+
+        if(! $request['password']){
+            unset($request['password']);
+        }
+
+        try {
+            User::find($id)->update($request);
+            return view('pages.users.show', $id)->with('success', __('Updated'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 
     /**
@@ -97,6 +118,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            User::destroy($id);
+            return redirect()->back()->with('success', __('Deleted'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 }
