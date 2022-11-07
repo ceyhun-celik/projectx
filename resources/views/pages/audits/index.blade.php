@@ -21,9 +21,7 @@
                         <thead class="border-b bg-gray-800">
                             <tr>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">#</th>
-                                {{-- <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Name') }}</th>
-                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Email') }}</th>
-                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Created At') }}</th> --}}
+                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Name') }}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -31,9 +29,7 @@
                             @forelse ($audits as $audit)
                                 <tr class="{{$loop->odd ? 'bg-white' : 'bg-gray-100'}}  border-b">
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $audit->id }}</td>
-                                    {{-- <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $audit->name }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $audit->email }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ date('d-m-Y H:i', strtotime($audit->created_at)) }}</td> --}}
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $audit->user_id }}</td>
                                     <td>
                                         <div class="flex items-center">
                                             <a href="{{ route('audits.show', $audit->id) }}">
