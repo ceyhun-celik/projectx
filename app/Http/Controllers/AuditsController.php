@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuditsRequest;
 use App\Models\Audit;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class AuditsController extends Controller
@@ -11,12 +11,28 @@ class AuditsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\Http\Requests\AuditsRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AuditsRequest $request)
     {
+        extract($request->validated());
+
         try {
-            $audits = Audit::select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'ip_address', 'created_at')
+            $audits = Audit::query()
+                ->with([
+                    'user' => fn($user) => $user->select('id', 'name')
+                ])
+                ->select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'ip_address', 'created_at')
+                ->when($search, function($query, $search){
+                    $query->whereHas('user', function($user) use($search){
+                        $user->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhere('event', 'like', "%{$search}%")
+                    ->orWhere('auditable_type', 'like', "%{$search}%")
+                    ->orWhere('ip_address', 'like', "%{$search}%");
+                })
+                ->orderByDesc('id')
                 ->paginate(10);
                 
             return view('pages.audits.index', compact('audits'));
@@ -38,10 +54,10 @@ class AuditsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\AuditsRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AuditsRequest $request)
     {
         //
     }
@@ -54,7 +70,18 @@ class AuditsController extends Controller
      */
     public function show($id)
     {
-        return view('pages.audits.show');
+        try {
+            $audit = Audit::query()
+                ->with([
+                    'user' => fn($user) => $user->select('id', 'name')
+                ])
+                ->select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'old_values', 'new_values', 'ip_address', 'user_agent', 'created_at')
+                ->find($id);
+
+            return view('pages.audits.show', compact('audit'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 
     /**
@@ -71,11 +98,11 @@ class AuditsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\AuditsRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AuditsRequest $request, $id)
     {
         //
     }

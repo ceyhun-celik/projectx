@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RolesRequest extends FormRequest
+class AuditsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,16 +23,18 @@ class RolesRequest extends FormRequest
      */
     public function rules()
     {
-        return match(request()->method()){
-            'GET' => [
-                //
-            ],
-            'POST' => [
-                //
-            ],
-            'PUT' => [
-                //
-            ]
+        return [
+            'search' => 'nullable|string'
+        ];
+    }
+
+    public function prepareForValidation()
+    {
+        match(request()->method()){
+            'GET' => $this->merge([
+                'search' => $this->search ?? null
+            ]),
+            default => []
         };
     }
 }

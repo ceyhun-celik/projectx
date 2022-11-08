@@ -45,7 +45,8 @@ class UsersRequest extends FormRequest
         match(request()->method()){
             'GET' => $this->merge([
                 'search' => $this->search ?? null
-            ]), default => []
+            ]),
+            default => []
         };
     }
 }

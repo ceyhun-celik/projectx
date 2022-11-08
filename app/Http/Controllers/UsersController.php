@@ -108,7 +108,7 @@ class UsersController extends Controller
 
         try {
             User::find($id)->update($request);
-            return view('pages.users.show', $id)->with('success', __('Updated'));
+            return redirect()->route('users.show', $id)->with('success', __('Updated'));
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);
         }
