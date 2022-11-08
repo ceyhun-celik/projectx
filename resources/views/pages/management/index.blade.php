@@ -14,6 +14,11 @@
                         <p class="text-sm text-gray-500 group-hover:text-gray-800 duration-200">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, assumenda nostrum. Minus quaerat ex accusantium doloremque laudantium totam, vero nobis provident ipsa libero illum non, aut, commodi ullam? Sapiente, labore?</p>
                     </a>
 
+                    <a href="{{ route('authorizations.index') }}" class="block group mb-4">
+                        <p class="text-gray-600 group-hover:text-black duration-200">• <span class="group-hover:underline">Authorizations</span></p>
+                        <p class="text-sm text-gray-500 group-hover:text-gray-800 duration-200">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, assumenda nostrum. Minus quaerat ex accusantium doloremque laudantium totam, vero nobis provident ipsa libero illum non, aut, commodi ullam? Sapiente, labore?</p>
+                    </a>
+
                     <a href="{{ route('audits.index') }}" class="block group">
                         <p class="text-gray-600 group-hover:text-black duration-200">• <span class="group-hover:underline">Audits</span></p>
                         <p class="text-sm text-gray-500 group-hover:text-gray-800 duration-200">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, assumenda nostrum. Minus quaerat ex accusantium doloremque laudantium totam, vero nobis provident ipsa libero illum non, aut, commodi ullam? Sapiente, labore?</p>

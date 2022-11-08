@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AuditsController,
+    AuthorizationsController,
     DashboardController,
     ManagementController,
     UsersController
@@ -29,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
 
         Route::resources([
             'users' => UsersController::class,
+            'authorizations' => AuthorizationsController::class,
             'audits' => AuditsController::class
         ]);
     });
