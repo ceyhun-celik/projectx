@@ -49,20 +49,20 @@
 
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('Created At') }}</p>
-                        <p class="text-gray-800">{{ date('d-m-y H:i', strtotime($audit->created_at)) }}</p>
+                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($audit->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm,") }}</p>
                     </div>
 
                     @if($audit->old_values != '[]')
                         <div class="mb-4">
                             <p class="font-semibold">{{ __('Old Values') }}</p>
-                            @dump(json_decode($audit->old_values))
+                            @dump(json_decode($audit->old_values, true))
                         </div>
                     @endif
 
                     @if($audit->new_values != '[]')
                         <div class="mb-4">
                             <p class="font-semibold">{{ __('New Values') }}</p>
-                            @dump(json_decode($audit->new_values))
+                            @dump(json_decode($audit->new_values, true))
                         </div>
                     @endif
 

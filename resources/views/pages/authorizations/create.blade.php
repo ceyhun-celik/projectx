@@ -19,21 +19,40 @@
                     <form action="{{ route('authorizations.store') }}" method="post"> @csrf
                         <!-- User Name -->
                         <div class="mb-4">
-                            <x-input-label for="name" :value="__('User Name')" />
+                            <x-input-label for="user_id" :value="__('User Name')" />
 
-                            <x-select>
+                            <x-select name="user_id">
                                 @forelse ($users as $user)
                                     @if ($loop->first)
                                         <option value="">-- Select --</option>
                                     @endif
 
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    <option {{ old('user_id') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
                                 @empty
                                     <option value="">No result found</option>
                                 @endforelse
                             </x-select>
 
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
+                        </div>
+
+                        <!-- Role Name -->
+                        <div class="mb-4">
+                            <x-input-label for="role_id" :value="__('Role Name')" />
+
+                            <x-select name="role_id">
+                                @forelse ($roles as $role)
+                                    @if ($loop->first)
+                                        <option value="">-- Select --</option>
+                                    @endif
+
+                                    <option {{ old('role_id') == $role->id ? 'selected' : '' }} value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                @empty
+                                    <option value="">No result found</option>
+                                @endforelse
+                            </x-select>
+
+                            <x-input-error :messages="$errors->get('role_id')" class="mt-2" />
                         </div>
 
                         <!-- Button -->

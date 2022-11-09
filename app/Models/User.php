@@ -45,14 +45,16 @@ class User extends Authenticatable implements Auditable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function audit()
+    
+    public function authorization()
     {
-        return $this->hasMany(Audit::class);
+        return $this->hasOne(Authorization::class);
     }
 
     public function setPasswordAttribute($value)
     {
         return $this->attributes['password'] = Hash::make($value);
     }
+
+    
 }

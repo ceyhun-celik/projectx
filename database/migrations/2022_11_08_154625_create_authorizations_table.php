@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('role_id');
-            $table->enum('status', ['active', 'banned']);
+            $table->enum('status', ['active', 'banned'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit')">
+                    <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits')">
                         {{ __('Management') }}
                     </x-nav-link>
                 </div>
@@ -71,7 +71,7 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('authorizations.show') || request()->routeIs('authorizations.create') || request()->routeIs('authorizations.edit')">
+            <x-responsive-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('authorizations.show') || request()->routeIs('authorizations.create') || request()->routeIs('authorizations.edit')">
                 {{ __('Management') }}
             </x-responsive-nav-link>
         </div>

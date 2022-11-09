@@ -9,8 +9,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4 flex justify-end">
                 <a href="{{ route('users.index') }}">
-                    <x-primary-button>
+                    <x-primary-button class="mr-1">
                         {{ __('List') }}
+                    </x-primary-button>
+                </a>
+
+                <a href="{{ route('users.audits', $user->id) }}">
+                    <x-primary-button>
+                        {{ __('Audits') }}
                     </x-primary-button>
                 </a>
             </div>
@@ -34,7 +40,7 @@
 
                     <div class="">
                         <p class="font-semibold">{{ __('Created At') }}</p>
-                        <p class="text-gray-800">{{ date('d-m-Y H:i', strtotime($user->created_at)) }}</p>
+                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($user->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm,") }}</p>
                     </div>
                 </div>
             </div>

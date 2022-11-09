@@ -43,7 +43,7 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $user->id }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ date('d-m-Y H:i', strtotime($user->created_at)) }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($user->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm,") }}</td>
                                     <td>
                                         <div class="flex items-center">
                                             <a href="{{ route('users.show', $user->id) }}">
@@ -68,7 +68,7 @@
                                 </tr>
                             @empty
                             <tr class="bg-white border-b">
-                                <td colspan="5">No record found</td>
+                                <td colspan="5" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">No record found</td>
                             </tr>
                             @endforelse
                         </tbody>

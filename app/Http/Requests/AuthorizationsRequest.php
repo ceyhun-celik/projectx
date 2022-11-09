@@ -25,14 +25,25 @@ class AuthorizationsRequest extends FormRequest
     {
         return match(request()->method()){
             'GET' => [
-                //
+                'search' => 'nullable|string'
             ],
             'POST' => [
-                //
+                'user_id' => 'required|integer',
+                'role_id' => 'required|integer'
             ],
             'PUT' => [
                 //
             ],
+            default => []
+        };
+    }
+
+    public function prepareForValidation()
+    {
+        match(request()->method()){
+            'GET' => $this->merge([
+                'search' => $this->search ?? null
+            ]),
             default => []
         };
     }

@@ -16,4 +16,9 @@ class Role extends Model
         'role_name',
         'role_code'
     ];
+
+    public function authorization()
+    {
+        return $this->hasMany(Authorization::class);
+    }
 }

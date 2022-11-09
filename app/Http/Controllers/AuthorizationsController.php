@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorizationsRequest;
+use App\Models\Authorization;
+use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class AuthorizationsController extends Controller
@@ -13,9 +15,32 @@ class AuthorizationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AuthorizationsRequest $request)
     {
-        return view('pages.authorizations.index');
+        $request = $request->validated();
+        extract($request);
+
+        try {
+            $authorizations = Authorization::query()
+                ->with([
+                    'user' => fn($user) => $user->select('id', 'name'),
+                    'role' => fn($role) => $role->select('id', 'role_name')
+                ])
+                ->select('id', 'user_id', 'role_id', 'status', 'created_at')
+                ->when($search, function($query, $search){
+                    $query->whereHas('user', function($user) use($search){
+                        $user->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('role', function($role) use($search){
+                        $role->where('role_name', 'like', "%{$search}%");
+                    });
+                })
+                ->paginate(10);
+
+            return view('pages.authorizations.index', compact('authorizations'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 
     /**
@@ -26,8 +51,15 @@ class AuthorizationsController extends Controller
     public function create()
     {
         try {
-            $users = User::select('id', 'name')->orderBy('name')->get();
-            return view('pages.authorizations.create', compact('users'));
+            $users = User::query()
+                ->select('id', 'name')
+                ->whereNotIn('id', Authorization::pluck('user_id'))
+                ->orderBy('name')
+                ->get();
+            
+            $roles = Role::select('id', 'role_name')->orderBy('role_name')->get();
+            
+            return view('pages.authorizations.create', compact('users', 'roles'));
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);
         }
@@ -36,12 +68,17 @@ class AuthorizationsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\AuthorizationsRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AuthorizationsRequest $request)
     {
-        //
+        try {
+            $create = Authorization::create($request->validated());
+            return redirect()->route('authorizations.show', $create->id)->with('success', __('Saved'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 
     /**
@@ -52,7 +89,7 @@ class AuthorizationsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('pages.authorizations.show');
     }
 
     /**
@@ -69,11 +106,11 @@ class AuthorizationsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\AuthorizationsRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AuthorizationsRequest $request, $id)
     {
         //
     }
@@ -86,6 +123,11 @@ class AuthorizationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Authorization::destroy($id);
+            return redirect()->back()->with('success', __('Deleted'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 }

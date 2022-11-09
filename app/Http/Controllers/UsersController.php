@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
+use App\Models\Audit;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
@@ -16,7 +17,8 @@ class UsersController extends Controller
      */
     public function index(UsersRequest $request)
     {
-        extract($request->validated());
+        $request = $request->validated();
+        extract($request);
 
         try {
             $users = User::select('id', 'name', 'email', 'created_at')
@@ -25,7 +27,8 @@ class UsersController extends Controller
                         ->orWhere('email', 'like', "%{$search}%");
                 })
                 ->orderBy('name')
-                ->paginate(10);
+                ->paginate(10)
+                ->appends($request);
 
             return view('pages.users.index', compact('users'));
         } catch (\Throwable $th) {
@@ -128,5 +131,21 @@ class UsersController extends Controller
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);
         }
+    }
+
+    /**
+     * Display the audit of specified resource.
+     *
+     * @param  int  $id
+     * @param  \App\Http\Requests\UsersRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function audits(UsersRequest $request, $id)
+    {
+        $audits = Audit::whereUserId($id)->orderByDesc('id')->paginate(10);
+
+        // return $audits;
+
+        return view('pages.users.audits', compact('id', 'audits'));
     }
 }

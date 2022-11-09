@@ -15,4 +15,10 @@ class Audit extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function setAuditableTypeWithoutPath()
+    {
+        $auditable_type = explode('\\', $this->auditable_type);
+        return end($auditable_type);
+    }
 }

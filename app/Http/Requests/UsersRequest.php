@@ -24,9 +24,14 @@ class UsersRequest extends FormRequest
     public function rules()
     {
         return match(request()->method()){
-            'GET' => [
-                'search' => 'nullable|string'
-            ],
+            'GET' => match(request()->route()->getName()){
+                'users.index' => [
+                    'search' => 'nullable|string'
+                ],
+                'users.audits' => [
+                    'search' => 'nullable|string'
+                ]
+            },
             'POST' => [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
@@ -43,9 +48,15 @@ class UsersRequest extends FormRequest
     public function prepareForValidation()
     {
         match(request()->method()){
-            'GET' => $this->merge([
-                'search' => $this->search ?? null
-            ]),
+            'GET' => match(request()->route()->getName()){
+                'users.index' => $this->merge([
+                    'search' => $this->search ?? null
+                ]),
+                'users.audits' => $this->merge([
+                    'search' => $this->search ?? null
+                ]),
+                default => []
+            },
             default => []
         };
     }

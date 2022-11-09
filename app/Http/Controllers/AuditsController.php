@@ -16,7 +16,8 @@ class AuditsController extends Controller
      */
     public function index(AuditsRequest $request)
     {
-        extract($request->validated());
+        $request = $request->validated();
+        extract($request);
 
         try {
             $audits = Audit::query()
@@ -33,7 +34,8 @@ class AuditsController extends Controller
                     ->orWhere('ip_address', 'like', "%{$search}%");
                 })
                 ->orderByDesc('id')
-                ->paginate(10);
+                ->paginate(10)
+                ->appends($request);
                 
             return view('pages.audits.index', compact('audits'));
         } catch (\Throwable $th) {

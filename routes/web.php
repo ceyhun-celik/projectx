@@ -28,8 +28,12 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::prefix('management')->group(function(){
         Route::get('/', [ManagementController::class, 'index'])->name('management.index');
 
+        # Users
+        Route::resource('users', UsersController::class);
+        Route::get('users/{id}/audits', [UsersController::class, 'audits'])->name('users.audits');
+
         Route::resources([
-            'users' => UsersController::class,
+            // 'users' => UsersController::class,
             'authorizations' => AuthorizationsController::class,
             'audits' => AuditsController::class
         ]);
