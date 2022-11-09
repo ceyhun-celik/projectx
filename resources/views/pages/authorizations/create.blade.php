@@ -24,7 +24,7 @@
                             <x-select name="user_id">
                                 @forelse ($users as $user)
                                     @if ($loop->first)
-                                        <option value="">-- Select --</option>
+                                        <option value="">{{ __('-- Select --') }}</option>
                                     @endif
 
                                     <option {{ old('user_id') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
@@ -43,7 +43,7 @@
                             <x-select name="role_id">
                                 @forelse ($roles as $role)
                                     @if ($loop->first)
-                                        <option value="">-- Select --</option>
+                                        <option value="">{{ __('-- Select --') }}</option>
                                     @endif
 
                                     <option {{ old('role_id') == $role->id ? 'selected' : '' }} value="{{ $role->id }}">{{ $role->role_name }}</option>

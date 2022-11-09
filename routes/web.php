@@ -6,6 +6,7 @@ use App\Http\Controllers\{
     AuthorizationsController,
     DashboardController,
     ManagementController,
+    ProfileController,
     UsersController
 };
 
@@ -25,6 +26,8 @@ Route::view('/', 'welcome');
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::resource('profile', ProfileController::class)->only(['index', 'store']);
+
     Route::prefix('management')->group(function(){
         Route::get('/', [ManagementController::class, 'index'])->name('management.index');
 
@@ -33,7 +36,6 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('users/{id}/audits', [UsersController::class, 'audits'])->name('users.audits');
 
         Route::resources([
-            // 'users' => UsersController::class,
             'authorizations' => AuthorizationsController::class,
             'audits' => AuditsController::class
         ]);

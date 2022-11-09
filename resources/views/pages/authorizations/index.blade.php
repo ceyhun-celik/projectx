@@ -7,7 +7,7 @@
 
     <div class="px-1 py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-input-success class="mb-4" />
+            <x-alert-success class="mb-4" />
 
             <div class="flex items-center justify-end gap-3 mb-4">
                 <form action="{{ route('authorizations.index') }}" method="GET" class="flex justify-end">
@@ -68,7 +68,7 @@
                                 </tr>
                             @empty
                             <tr class="bg-white border-b">
-                                <td colspan="5" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">No record found</td>
+                                <td colspan="5" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __('No record found') }}</td>
                             </tr>
                             @endforelse
                         </tbody>

@@ -7,6 +7,8 @@
 
     <div class="px-1 py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <x-alert-success class="mb-4" />
+
             <div class="mb-4 flex justify-end">
                 <a href="{{ route('users.index') }}">
                     <x-primary-button class="mr-1">
