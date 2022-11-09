@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\ChangePasswordRequest;
 
-class ProfileController extends Controller
+class ChangePasswordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,17 +13,17 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('pages.profile.index');
+        return view('pages.change-password.index');
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\ProfileRequest $request
+     * @param  \App\Http\Requests\ChangePasswordRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProfileRequest $request)
+    public function store(ChangePasswordRequest $request)
     {
         //
     }

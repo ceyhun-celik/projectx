@@ -12,10 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <!-- Dashboard -->
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    <!-- Management -->
                     <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits')">
                         {{ __('Management') }}
                     </x-nav-link>
@@ -38,9 +40,16 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <!-- Profile -->
                         <x-dropdown-link :href="route('profile.index')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+
+                        <!-- Change Password -->
+                        <x-dropdown-link :href="route('change-password.index')">
+                            {{ __('Change Password') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

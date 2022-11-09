@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AuditsController,
     AuthorizationsController,
+    ChangePasswordController,
     DashboardController,
     ManagementController,
     ProfileController,
@@ -24,9 +25,14 @@ use App\Http\Controllers\{
 Route::view('/', 'welcome');
 
 Route::middleware(['auth', 'verified'])->group(function(){
+    # Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    # Profile
     Route::resource('profile', ProfileController::class)->only(['index', 'store']);
+
+    # Change Password
+    Route::resource('change-password', ChangePasswordController::class)->only(['index', 'store']);
 
     Route::prefix('management')->group(function(){
         Route::get('/', [ManagementController::class, 'index'])->name('management.index');
