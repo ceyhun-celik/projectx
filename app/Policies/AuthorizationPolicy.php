@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Authorization;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -18,19 +18,18 @@ class AuthorizationPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->authorization->role_id === Role::root()->id;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Authorization  $authorization
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Authorization $authorization)
+    public function view(User $user)
     {
-        //
+        return $user->authorization->role_id === Role::root()->id;
     }
 
     /**
@@ -41,41 +40,38 @@ class AuthorizationPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->authorization->role_id === Role::root()->id;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Authorization  $authorization
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Authorization $authorization)
+    public function update(User $user)
     {
-        //
+        return $user->authorization->role_id === Role::root()->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Authorization  $authorization
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Authorization $authorization)
+    public function delete(User $user)
     {
-        //
+        return $user->authorization->role_id === Role::root()->id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Authorization  $authorization
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Authorization $authorization)
+    public function restore(User $user)
     {
         //
     }
@@ -84,10 +80,9 @@ class AuthorizationPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Authorization  $authorization
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Authorization $authorization)
+    public function forceDelete(User $user)
     {
         //
     }

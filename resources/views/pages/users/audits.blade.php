@@ -10,6 +10,7 @@
             <x-alert-success class="mb-4" />
 
             <div class="flex items-center justify-end gap-3 mb-4">
+                <!-- Search -->
                 <form action="{{ route('users.audits', $id) }}" method="GET" class="flex justify-end">
                     <div class="flex items-center">
                         <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Name.." />
@@ -18,6 +19,7 @@
 
                 <span>|</span>
     
+                <!-- Button:Back -->
                 <a href="{{ route('users.show', $id) }}">
                     <x-primary-button>
                         {{ __('Back') }}

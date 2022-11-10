@@ -55,4 +55,16 @@ class User extends Authenticatable implements Auditable
     {
         return $this->attributes['password'] = Hash::make($value);
     }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::deleted(function ($user) {
+            Authorization::whereUserId($user->id)->delete();
+        });
+    }
 }

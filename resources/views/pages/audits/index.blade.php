@@ -7,8 +7,10 @@
 
     <div class="px-1 py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- Alert:Success -->
             <x-alert-success class="mb-4" />
 
+            <!-- Search -->
             <form action="{{ route('audits.index') }}" method="GET" class="flex justify-end mb-4">
                 <div class="flex items-center">
                     <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Search.." />
@@ -42,6 +44,7 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($audit->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
                                     <td>
                                         <div class="flex items-center">
+                                            <!-- Button:Show -->
                                             <a href="{{ route('audits.show', $audit->id) }}">
                                                 <x-primary-button class="ml-3">
                                                     {{ __('Show') }}
