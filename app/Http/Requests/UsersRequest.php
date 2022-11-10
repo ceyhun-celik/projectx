@@ -25,12 +25,10 @@ class UsersRequest extends FormRequest
     {
         return match(request()->method()){
             'GET' => match(request()->route()->getName()){
-                'users.index' => [
+                'users.index', 'users.watch', 'users.audits' => [
                     'search' => 'nullable|string'
                 ],
-                'users.audits' => [
-                    'search' => 'nullable|string'
-                ]
+                default => []
             },
             'POST' => [
                 'name' => 'required|string|max:255',

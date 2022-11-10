@@ -17,6 +17,8 @@ class UsersController extends Controller
      */
     public function index(UsersRequest $request)
     {
+        $this->authorize('viewAny', User::class);
+
         $request = $request->validated();
         extract($request);
 
@@ -43,6 +45,8 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
+
         return view('pages.users.create');
     }
 
@@ -54,6 +58,8 @@ class UsersController extends Controller
      */
     public function store(UsersRequest $request)
     {
+        $this->authorize('create', User::class);
+
         try {
             $create = User::create($request->validated());
             return redirect()->route('users.show', $create->id)->with('success', __('Saved'));
@@ -70,6 +76,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view', User::class);
+
         try {
             $user = User::select('id', 'name', 'email', 'created_at')->find($id);
             return view('pages.users.show', compact('user'));
@@ -86,6 +94,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('update', User::class);
+
         try {
             $user = User::select('id', 'name', 'email')->find($id);
             return view('pages.users.edit', compact('user'));
@@ -103,6 +113,8 @@ class UsersController extends Controller
      */
     public function update(UsersRequest $request, $id)
     {
+        $this->authorize('update', User::class);
+
         $request = $request->validated();
 
         if(! $request['password']){
@@ -125,6 +137,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', User::class);
+
         try {
             User::destroy($id);
             return redirect()->back()->with('success', __('Deleted'));
@@ -134,7 +148,24 @@ class UsersController extends Controller
     }
 
     /**
-     * Display the audit of specified resource.
+     * Display the watch of specified resource.
+     *
+     * @param  int  $id
+     * @param  \App\Http\Requests\UsersRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function watch(UsersRequest $request, $id)
+    {
+        try {
+            $audits = Audit::whereUserId($id)->orderByDesc('id')->paginate(10);
+            return view('pages.users.watch', compact('id', 'audits'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
+    }
+
+    /**
+     * Display the audits of specified resource.
      *
      * @param  int  $id
      * @param  \App\Http\Requests\UsersRequest $request
@@ -142,10 +173,6 @@ class UsersController extends Controller
      */
     public function audits(UsersRequest $request, $id)
     {
-        $audits = Audit::whereUserId($id)->orderByDesc('id')->paginate(10);
-
-        // return $audits;
-
-        return view('pages.users.audits', compact('id', 'audits'));
+        //
     }
 }

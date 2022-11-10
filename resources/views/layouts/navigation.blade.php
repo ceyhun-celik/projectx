@@ -18,9 +18,11 @@
                     </x-nav-link>
 
                     <!-- Management -->
-                    <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits')">
-                        {{ __('Management') }}
-                    </x-nav-link>
+                    @can('root')                        
+                        <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits')">
+                            {{ __('Management') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -79,13 +81,17 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            <!-- Dashboard -->
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('authorizations.show') || request()->routeIs('authorizations.create') || request()->routeIs('authorizations.edit')">
-                {{ __('Management') }}
-            </x-responsive-nav-link>
+            <!-- Management -->
+            @can('root')
+                <x-responsive-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('authorizations.show') || request()->routeIs('authorizations.create') || request()->routeIs('authorizations.edit')">
+                    {{ __('Management') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

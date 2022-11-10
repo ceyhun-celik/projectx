@@ -16,6 +16,11 @@
                     </x-primary-button>
                 </a>
 
+                <a href="{{ route('users.watch', $user->id) }}">
+                    <x-primary-button class="mr-1">
+                        {{ __('Watch') }}
+                    </x-primary-button>
+
                 <a href="{{ route('users.audits', $user->id) }}">
                     <x-primary-button>
                         {{ __('Audits') }}

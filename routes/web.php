@@ -34,12 +34,15 @@ Route::middleware(['auth', 'verified'])->group(function(){
     # Change Password
     Route::resource('change-password', ChangePasswordController::class)->only(['index', 'store']);
 
-    Route::prefix('management')->group(function(){
+    Route::middleware(['can:root'])->prefix('management')->group(function(){
         Route::get('/', [ManagementController::class, 'index'])->name('management.index');
 
         # Users
         Route::resource('users', UsersController::class);
-        Route::get('users/{id}/audits', [UsersController::class, 'audits'])->name('users.audits');
+        Route::prefix('users')->name('users.')->group(function(){
+            Route::get('{id}/watch', [UsersController::class, 'watch'])->name('watch');
+            Route::get('{id}/audits', [UsersController::class, 'audits'])->name('audits');
+        });
 
         Route::resources([
             'authorizations' => AuthorizationsController::class,
