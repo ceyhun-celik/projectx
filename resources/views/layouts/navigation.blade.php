@@ -19,7 +19,7 @@
 
                     <!-- Management -->
                     @can('root')                        
-                        <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.watch') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.watch') || request()->routeIs('users.audits')">
+                        <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.watch') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('authorizations.show') || request()->routeIs('authorizations.edit') || request()->routeIs('authorizations.audits') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.watch') || request()->routeIs('users.audits')">
                             {{ __('Management') }}
                         </x-nav-link>
                     @endcan
@@ -52,7 +52,7 @@
                             {{ __('Change Password') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
+                        <!-- Log Out -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -88,7 +88,7 @@
 
             <!-- Management -->
             @can('root')
-                <x-responsive-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.watch') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('authorizations.show') || request()->routeIs('authorizations.create') || request()->routeIs('authorizations.edit')">
+                <x-responsive-nav-link :href="route('management.index')" :active="request()->routeIs('management.index') || request()->routeIs('users.index') || request()->routeIs('users.show') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.watch') || request()->routeIs('users.audits') || request()->routeIs('audits.index') || request()->routeIs('audits.show') || request()->routeIs('authorizations.index') || request()->routeIs('authorizations.show') || request()->routeIs('authorizations.edit') || request()->routeIs('authorizations.audits') || request()->routeIs('authorizations.show') || request()->routeIs('authorizations.create') || request()->routeIs('authorizations.edit')">
                     {{ __('Management') }}
                 </x-responsive-nav-link>
             @endcan
@@ -102,7 +102,17 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <!-- Authentication -->
+                <!-- Profile -->
+                <x-responsive-nav-link :href="route('profile.index')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                <!-- Change Password -->
+                <x-responsive-nav-link :href="route('change-password.index')">
+                    {{ __('Change Password') }}
+                </x-responsive-nav-link>
+                
+                <!-- Log Out -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 

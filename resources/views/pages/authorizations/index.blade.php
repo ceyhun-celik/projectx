@@ -7,7 +7,7 @@
 
     <div class="px-1 py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+            <!-- Alert:Success -->
             <x-alert-success class="mb-4" />
 
             <div class="flex items-center justify-end gap-3 mb-4">
@@ -34,9 +34,10 @@
                         <thead class="border-b bg-gray-800">
                             <tr>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">#</th>
-                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('User Name') }}</th>
+                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Name') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Role Name') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Status') }}</th>
+                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Created At') }}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $authorization->id }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $authorization?->user->name }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $authorization->role->role_name }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ ucfirst($authorization->status) }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($authorization->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
                                     <td>
                                         <div class="flex items-center">

@@ -7,8 +7,6 @@
 
     <div class="px-1 py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-alert-success class="mb-4" />
-
             <div class="flex items-center justify-end gap-3 mb-4">
                 <!-- Search -->
                 <form action="{{ route('users.watch', $id) }}" method="GET" class="flex justify-end">
@@ -58,11 +56,14 @@
                         @if ($audit->event == 'updated')
                             <div class="mt-4">
                                 <p class="font-semibold">{{ __('Modify') }}</p>
-                                <p class="text-gray-800">
-                                    @foreach (json_decode($audit->old_values) as $key => $value)
-                                        <p>• <span class="font-semibold">{{ json_decode($audit->old_values, true)[$key] }}</span> => {{ json_decode($audit->new_values, true)[$key] }}</span></p>
-                                    @endforeach
-                                </p>
+                                @foreach ($audit->decodeOldValues() as $key => $value)
+                                    <p class="text-gray-800">
+                                        <span class="mr-1 font-semibold">• [{{ __($key) }}]</span>
+                                        <span>{{ $audit->decodeOldValues()[$key] }}</span>
+                                        <span class="mx-1">~</span>
+                                        <span>{{ $audit->decodeNewValues()[$key] }}</span>
+                                    </p>
+                                @endforeach
                             </div>
                         @endif
 
@@ -74,7 +75,7 @@
 
                         <!-- IP Address -->
                         <div class="flex mt-1">
-                            <p class="mr-1 font-semibold">{{ __('Ip Address') }}:</p>
+                            <p class="mr-1 font-semibold">{{ __('IP Address') }}:</p>
                             <p class="text-gray-800">{{ $audit->ip_address }}</p>
                         </div>
 

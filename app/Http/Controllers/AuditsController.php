@@ -22,11 +22,10 @@ class AuditsController extends Controller
         extract($request);
 
         try {
-            $audits = Audit::query()
+            $audits = Audit::select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'ip_address', 'created_at')
                 ->with([
                     'user' => fn($user) => $user->select('id', 'name')
                 ])
-                ->select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'ip_address', 'created_at')
                 ->when($search, function($query, $search){
                     $query->whereHas('user', function($user) use($search){
                         $user->where('name', 'like', "%{$search}%");
@@ -56,11 +55,11 @@ class AuditsController extends Controller
         $this->authorize('view', Audit::class);
 
         try {
-            $audit = Audit::query()
+            $audit = Audit::select('id', 'user_id', 'event', 'auditable_type', 'auditable_id')
+                ->addSelect('old_values', 'new_values', 'ip_address', 'user_agent', 'created_at')
                 ->with([
                     'user' => fn($user) => $user->select('id', 'name')
                 ])
-                ->select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'old_values', 'new_values', 'ip_address', 'user_agent', 'created_at')
                 ->find($id);
 
             return view('pages.audits.show', compact('audit'));

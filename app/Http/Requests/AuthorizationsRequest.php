@@ -24,15 +24,19 @@ class AuthorizationsRequest extends FormRequest
     public function rules()
     {
         return match(request()->method()){
-            'GET' => [
-                'search' => 'nullable|string'
-            ],
+            'GET' => match(request()->route()->getName()){
+                'authorizations.index', 'authorizations.audits' => [
+                    'search' => 'nullable|string'
+                ],
+                default => []
+            },
             'POST' => [
                 'user_id' => 'required|integer',
                 'role_id' => 'required|integer'
             ],
             'PUT' => [
-                //
+                'role_id' => 'required|integer',
+                'status' => 'required|string|in:active,banned'
             ],
             default => []
         };
@@ -41,9 +45,12 @@ class AuthorizationsRequest extends FormRequest
     public function prepareForValidation()
     {
         match(request()->method()){
-            'GET' => $this->merge([
-                'search' => $this->search ?? null
-            ]),
+            'GET' => match(request()->route()->getName()){
+                'authorizations.index', 'authorizations.audits' => $this->merge([
+                    'search' => $this->search ?? null
+                ]),
+                default => []
+            },
             default => []
         };
     }

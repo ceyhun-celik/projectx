@@ -24,7 +24,7 @@ use App\Http\Controllers\{
 
 Route::view('/', 'welcome');
 
-Route::middleware(['auth', 'verified'])->group(function(){
+Route::middleware(['auth', 'verified', 'can:status'])->group(function(){
     # Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::resource('change-password', ChangePasswordController::class)->only(['index', 'store']);
 
     Route::middleware(['can:root'])->prefix('management')->group(function(){
+        # Management
         Route::get('/', [ManagementController::class, 'index'])->name('management.index');
 
         # Users
@@ -46,6 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
 
         # Authorizations
         Route::resource('authorizations', AuthorizationsController::class);
+        Route::prefix('authorizations')->name('authorizations.')->group(function(){
+            Route::get('{id}/audits', [AuthorizationsController::class, 'audits'])->name('audits');
+        });
 
         # Audits
         Route::resource('audits', AuditsController::class)->only(['index', 'show']);

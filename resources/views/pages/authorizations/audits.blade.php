@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('User Audits') }}
+            {{ __('Authorizations Audits') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex items-center justify-end gap-3 mb-4">
                 <!-- Search -->
-                <form action="{{ route('users.audits', $id) }}" method="GET" class="flex justify-end">
+                <form action="{{ route('authorizations.audits', $id) }}" method="GET" class="flex justify-end">
                     <div class="flex items-center">
                         <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Name.." />
                     </div>
@@ -18,7 +18,7 @@
                 <span>|</span>
     
                 <!-- Button:Back -->
-                <a href="{{ route('users.show', $id) }}">
+                <a href="{{ route('authorizations.show', $id) }}">
                     <x-primary-button>
                         {{ __('Back') }}
                     </x-primary-button>

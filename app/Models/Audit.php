@@ -21,4 +21,14 @@ class Audit extends Model
         $auditable_type = explode('\\', $this->auditable_type);
         return end($auditable_type);
     }
+
+    public function decodeOldValues()
+    {
+        return json_decode($this->old_values, true);
+    }
+
+    public function decodeNewValues()
+    {
+        return json_decode($this->new_values, true);
+    }
 }

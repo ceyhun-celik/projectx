@@ -20,7 +20,7 @@
                     <form action="{{ route('authorizations.store') }}" method="post"> @csrf
                         <!-- User Name -->
                         <div class="mb-4">
-                            <x-input-label for="user_id" :value="__('User Name')" />
+                            <x-input-label for="user_id" :value="__('Name')" />
 
                             <x-select name="user_id">
                                 @forelse ($users as $user)

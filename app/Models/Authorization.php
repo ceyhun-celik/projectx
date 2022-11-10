@@ -16,7 +16,8 @@ class Authorization extends Model implements Auditable
 
     protected $fillable = [
         'user_id',
-        'role_id'
+        'role_id',
+        'status'
     ];
 
     public function user()
