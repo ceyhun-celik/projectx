@@ -44,10 +44,11 @@ Route::middleware(['auth', 'verified'])->group(function(){
             Route::get('{id}/audits', [UsersController::class, 'audits'])->name('audits');
         });
 
-        Route::resources([
-            'authorizations' => AuthorizationsController::class,
-            'audits' => AuditsController::class
-        ]);
+        # Authorizations
+        Route::resource('authorizations', AuthorizationsController::class);
+
+        # Audits
+        Route::resource('audits', AuditsController::class)->only(['index', 'show']);
     });
 
 });

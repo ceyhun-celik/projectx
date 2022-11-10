@@ -12,7 +12,7 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Http\Requests\UsersRequest $request
+     * @param  \App\Http\Requests\UsersRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function index(UsersRequest $request)
@@ -53,7 +53,7 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\UsersRequest $request
+     * @param  \App\Http\Requests\UsersRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(UsersRequest $request)
@@ -107,7 +107,7 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UsersRequest $request
+     * @param  \App\Http\Requests\UsersRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -151,7 +151,7 @@ class UsersController extends Controller
      * Display the watch of specified resource.
      *
      * @param  int  $id
-     * @param  \App\Http\Requests\UsersRequest $request
+     * @param  \App\Http\Requests\UsersRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function watch(UsersRequest $request, $id)
@@ -183,7 +183,7 @@ class UsersController extends Controller
      * Display the audits of specified resource.
      *
      * @param  int  $id
-     * @param  \App\Http\Requests\UsersRequest $request
+     * @param  \App\Http\Requests\UsersRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function audits(UsersRequest $request, $id)

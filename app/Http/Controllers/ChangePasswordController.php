@@ -20,7 +20,7 @@ class ChangePasswordController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\ChangePasswordRequest $request
+     * @param  \App\Http\Requests\ChangePasswordRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ChangePasswordRequest $request)

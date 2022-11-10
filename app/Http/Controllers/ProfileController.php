@@ -20,7 +20,7 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\ProfileRequest $request
+     * @param  \App\Http\Requests\ProfileRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProfileRequest $request)

@@ -68,7 +68,7 @@ class AuthorizationsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\AuthorizationsRequest $request
+     * @param  \App\Http\Requests\AuthorizationsRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(AuthorizationsRequest $request)
@@ -106,7 +106,7 @@ class AuthorizationsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\AuthorizationsRequest $request
+     * @param  \App\Http\Requests\AuthorizationsRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
