@@ -34,7 +34,7 @@
 
                     <div class="">
                         <p class="font-semibold">{{ __('Created At') }}</p>
-                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($authorization->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm,") }}</p>
+                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($authorization->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</p>
                     </div> --}}
                 </div>
             </div>

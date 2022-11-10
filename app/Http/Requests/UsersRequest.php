@@ -47,10 +47,7 @@ class UsersRequest extends FormRequest
     {
         match(request()->method()){
             'GET' => match(request()->route()->getName()){
-                'users.index' => $this->merge([
-                    'search' => $this->search ?? null
-                ]),
-                'users.audits' => $this->merge([
+                'users.index', 'users.watch', 'users.audits' => $this->merge([
                     'search' => $this->search ?? null
                 ]),
                 default => []

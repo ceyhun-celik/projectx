@@ -49,7 +49,7 @@
 
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('Created At') }}</p>
-                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($audit->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm,") }}</p>
+                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($audit->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</p>
                     </div>
 
                     @if($audit->old_values != '[]')

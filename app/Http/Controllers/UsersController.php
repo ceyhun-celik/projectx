@@ -156,8 +156,23 @@ class UsersController extends Controller
      */
     public function watch(UsersRequest $request, $id)
     {
+        $this->authorize('view', User::class);
+
+        $request = $request->validated();
+        extract($request);
+
         try {
-            $audits = Audit::whereUserId($id)->orderByDesc('id')->paginate(10);
+            $audits = Audit::select('id', 'user_id', 'event', 'auditable_type', 'auditable_id', 'old_values')
+                ->addSelect('new_values', 'url', 'ip_address', 'user_agent', 'created_at')
+                ->where('user_id', $id)
+                ->when($search, function($query, $search){
+                    $query->where('event', 'like', "%{$search}%")
+                        ->orWhere('auditable_type', 'like', "%{$search}%")
+                        ->orWhere('ip_address', 'like', "%{$search}%");
+                })
+                ->orderByDesc('id')
+                ->paginate(10);
+
             return view('pages.users.watch', compact('id', 'audits'));
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);
@@ -173,6 +188,28 @@ class UsersController extends Controller
      */
     public function audits(UsersRequest $request, $id)
     {
-        //
+        $this->authorize('view', User::class);
+        
+        $request = $request->validated();
+        extract($request);
+
+        try {
+            $audits = Audit::select('id', 'user_id', 'event', 'old_values', 'new_values')
+                ->addSelect('user_agent', 'ip_address', 'created_at')
+                ->whereAuditableType('App\\Models\\User')
+                ->whereAuditableId($id)
+                ->when($search, function($query, $search){
+                    $query->whereHas('user', function($user) use($search){
+                        $user->where('name', 'like', "%{$search}%");
+                    });
+                })
+                ->orderByDesc('id')
+                ->paginate(10)
+                ->appends($request);
+
+            return view('pages.users.audits', compact('id', 'audits'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
     }
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('User Watch') }}
+            {{ __('User Audits') }}
         </h2>
     </x-slot>
 
@@ -10,9 +10,9 @@
             <x-alert-success class="mb-4" />
 
             <div class="flex items-center justify-end gap-3 mb-4">
-                <form action="{{ route('users.watch', $id) }}" method="GET" class="flex justify-end">
+                <form action="{{ route('users.audits', $id) }}" method="GET" class="flex justify-end">
                     <div class="flex items-center">
-                        <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Search.." />
+                        <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Name.." />
                     </div>
                 </form>
 
@@ -33,14 +33,9 @@
                             <p class="text-gray-800">{{ \Carbon\Carbon::parse($audit->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</p>
                         </div>
                        
-                        <div class="flex mt-4">
-                            <p class="mr-1 font-semibold">{{ __('Auditable Type') }}:</p>
-                            <p class="text-gray-800">{{ __("{$audit->setAuditableTypeWithoutPath()}") }}</p>
-                        </div>
-
                         <div class="flex mt-1">
-                            <p class="mr-1 font-semibold">{{ __('Auditable ID') }}:</p>
-                            <p class="text-gray-800">{{ $audit->auditable_id }}</p>
+                            <p class="mr-1 font-semibold">{{ __('Name') }}:</p>
+                            <p class="text-gray-800">{{ $audit->user->name }}</p>
                         </div>
 
                         <div class="flex mt-1">
@@ -59,12 +54,8 @@
                             </div>
                         @endif
 
-                        <div class="flex mt-4">
-                            <p class="mr-1 font-semibold">{{ __('Url') }}:</p>
-                            <p class="text-gray-800">{{ $audit->url }}</p>
-                        </div>
 
-                        <div class="flex mt-1">
+                        <div class="flex mt-4">
                             <p class="mr-1 font-semibold">{{ __('Ip Address') }}:</p>
                             <p class="text-gray-800">{{ $audit->ip_address }}</p>
                         </div>
