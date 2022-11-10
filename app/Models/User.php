@@ -55,6 +55,4 @@ class User extends Authenticatable implements Auditable
     {
         return $this->attributes['password'] = Hash::make($value);
     }
-
-    
 }
