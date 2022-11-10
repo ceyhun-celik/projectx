@@ -8,6 +8,7 @@ use App\Http\Controllers\{
     DashboardController,
     ManagementController,
     ProfileController,
+    RolesController,
     UsersController
 };
 
@@ -37,6 +38,9 @@ Route::middleware(['auth', 'verified', 'can:status'])->group(function(){
     Route::middleware(['can:root'])->prefix('management')->group(function(){
         # Management
         Route::get('/', [ManagementController::class, 'index'])->name('management.index');
+
+        # Roles
+        Route::get('roles', [RolesController::class, 'index'])->name('roles.index');
 
         # Users
         Route::resource('users', UsersController::class);

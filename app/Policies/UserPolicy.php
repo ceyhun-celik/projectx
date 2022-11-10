@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->authorization->role_id === Role::root()->id;
+        return $user->authorization->role_code === Role::root()->role_code;
     }
 
     /**
@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return $user->authorization->role_id === Role::root()->id;
+        return $user->authorization->role_code === Role::root()->role_code;
     }
 
     /**
@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->authorization->role_id === Role::root()->id;
+        return $user->authorization->role_code === Role::root()->role_code;
     }
 
     /**
@@ -51,7 +51,7 @@ class UserPolicy
      */
     public function update(User $user)
     {
-        return $user->authorization->role_id === Role::root()->id;
+        return $user->authorization->role_code === Role::root()->role_code;
     }
 
     /**
@@ -62,7 +62,7 @@ class UserPolicy
      */
     public function delete(User $user)
     {
-        return $user->authorization->role_id === Role::root()->id;
+        return $user->authorization->role_code === Role::root()->role_code;
     }
 
     /**

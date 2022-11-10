@@ -18,7 +18,7 @@ class AuditPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->authorization->role_id === Role::root()->id;
+        return $user->authorization->role_code === Role::root()->role_code;
     }
 
     /**
@@ -29,6 +29,6 @@ class AuditPolicy
      */
     public function view(User $user)
     {
-        return $user->authorization->role_id === Role::root()->id;
+        return $user->authorization->role_code === Role::root()->role_code;
     }
 }

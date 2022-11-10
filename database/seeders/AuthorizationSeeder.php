@@ -20,15 +20,15 @@ class AuthorizationSeeder extends Seeder
         Authorization::insert([
             [
                 'user_id' => 1,
-                'role_id' => 1
+                'role_code' => 'root'
             ],
             [
                 'user_id' => 2,
-                'role_id' => 1
+                'role_code' => 'root'
             ],
             [
                 'user_id' => 3,
-                'role_id' => 2
+                'role_code' => 'visitor'
             ]
         ]);
     }

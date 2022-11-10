@@ -24,10 +24,10 @@ class AuthorizationsController extends Controller
         extract($request);
 
         try {
-            $authorizations = Authorization::select('id', 'user_id', 'role_id', 'status', 'created_at')
+            $authorizations = Authorization::select('id', 'user_id', 'role_code', 'status', 'created_at')
                 ->with([
                     'user' => fn($user) => $user->select('id', 'name'),
-                    'role' => fn($role) => $role->select('id', 'role_name')
+                    'role' => fn($role) => $role->select('id', 'role_code', 'role_name')
                 ])
                 ->when($search, function($query, $search){
                     $query->whereHas('user', function($user) use($search){
@@ -60,7 +60,7 @@ class AuthorizationsController extends Controller
                 ->orderBy('name')
                 ->get();
             
-            $roles = Role::select('id', 'role_name')->orderBy('role_name')->get();
+            $roles = Role::select('id', 'role_name', 'role_code')->orderBy('role_name')->get();
             
             return view('pages.authorizations.create', compact('users', 'roles'));
         } catch (\Throwable $th) {
@@ -97,7 +97,7 @@ class AuthorizationsController extends Controller
         $this->authorize('view', Authorization::class);
 
         try {
-            $authorization = Authorization::select('id', 'user_id', 'role_id', 'status', 'created_at')->find($id);
+            $authorization = Authorization::select('id', 'user_id', 'role_code', 'status', 'created_at')->find($id);
             return view('pages.authorizations.show', compact('authorization'));
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);
@@ -115,8 +115,8 @@ class AuthorizationsController extends Controller
         $this->authorize('update', Authorization::class);
 
         try {
-            $authorization = Authorization::select('id', 'user_id', 'role_id', 'status')->find($id);
-            $roles = Role::select('id', 'role_name')->orderBy('role_name')->get();
+            $authorization = Authorization::select('id', 'user_id', 'role_code', 'status')->find($id);
+            $roles = Role::select('id', 'role_name', 'role_code')->orderBy('role_name')->get();
             return view('pages.authorizations.edit', compact('authorization', 'roles'));
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);

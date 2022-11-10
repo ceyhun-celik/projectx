@@ -18,7 +18,6 @@ class Role extends Model
     ];
 
     protected $hidden = [
-        'created_at',
         'updated_at',
         'deleted_at'
     ];
@@ -28,7 +27,7 @@ class Role extends Model
 
     public function authorization()
     {
-        return $this->hasMany(Authorization::class);
+        return $this->hasMany(Authorization::class, 'role_code', 'role_code');
     }
 
     public function scopeRoot($query)

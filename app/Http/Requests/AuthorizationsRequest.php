@@ -32,10 +32,10 @@ class AuthorizationsRequest extends FormRequest
             },
             'POST' => [
                 'user_id' => 'required|integer',
-                'role_id' => 'required|integer'
+                'role_code' => 'required|string|in:root,visitor'
             ],
             'PUT' => [
-                'role_id' => 'required|integer',
+                'role_code' => 'required|string|in:root,visitor',
                 'status' => 'required|string|in:active,banned'
             ],
             default => []

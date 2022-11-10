@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('authorizations', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('role_id');
+            $table->string('role_code');
             $table->enum('status', ['active', 'banned'])->default('active');
             $table->timestamps();
             $table->softDeletes();

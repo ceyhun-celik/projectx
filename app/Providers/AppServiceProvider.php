@@ -27,8 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         # Authorization Role
-        Gate::define('root', fn (User $user) => $user->authorization?->role_id === Role::root()->id);
-        Gate::define('visitor', fn (User $user) => $user->authorization?->role_id === Role::visitor()->id);
+        Gate::define('root', fn (User $user) => $user->authorization?->role_code === Role::root()->role_code);
+        Gate::define('visitor', fn (User $user) => $user->authorization?->role_code === Role::visitor()->role_code);
 
         # Authorization Status
         Gate::define('status', fn (User $user) => $user->authorization?->status === 'active');

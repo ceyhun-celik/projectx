@@ -16,7 +16,7 @@ class Authorization extends Model implements Auditable
 
     protected $fillable = [
         'user_id',
-        'role_id',
+        'role_code',
         'status'
     ];
 
@@ -27,6 +27,6 @@ class Authorization extends Model implements Auditable
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class, 'role_code', 'role_code');
     }
 }

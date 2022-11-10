@@ -39,21 +39,21 @@
 
                         <!-- Role Name -->
                         <div class="mb-4">
-                            <x-input-label for="role_id" :value="__('Role Name')" />
+                            <x-input-label for="role_code" :value="__('Role Name')" />
 
-                            <x-select name="role_id">
+                            <x-select name="role_code">
                                 @forelse ($roles as $role)
                                     @if ($loop->first)
                                         <option value="">{{ __('-- Select --') }}</option>
                                     @endif
 
-                                    <option {{ old('role_id') == $role->id ? 'selected' : '' }} value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                    <option {{ old('role_code') == $role->role_code ? 'selected' : '' }} value="{{ $role->role_code }}">{{ $role->role_name }}</option>
                                 @empty
                                     <option value="">No result found</option>
                                 @endforelse
                             </x-select>
 
-                            <x-input-error :messages="$errors->get('role_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('role_code')" class="mt-2" />
                         </div>
 
                         <!-- Button -->
