@@ -41,4 +41,16 @@ class Role extends Model
     {
         return $query->whereRoleCode(self::VISITOR)->first();
     }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::deleted(function (Role $role) {
+            Authorization::whereRoleCode($role->role_code)->delete();
+        });
+    }
 }
