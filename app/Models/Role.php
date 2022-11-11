@@ -12,16 +12,19 @@ class Role extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $table = 'roles';
 
+    /**
+     * The attributes that are mass assignable.
+     * 
+     * @var array<string>
+     */
     protected $fillable = [
         'role_name',
         'role_code'
-    ];
-
-    protected $hidden = [
-        'updated_at',
-        'deleted_at'
     ];
 
     public const ROOT = 'root';
@@ -32,22 +35,26 @@ class Role extends Model
         return $this->hasMany(Authorization::class, 'role_code', 'role_code');
     }
 
-    public function scopeRoot(Builder $query)
+    /**
+     * Where role code equal to root
+     */
+    public function scopeRoot(Builder $query): Role
     {
         return $query->whereRoleCode(self::ROOT)->first();
     }
 
-    public function scopeVisitor(Builder $query)
+    /**
+     * Where role code equal to visitor
+     */
+    public function scopeVisitor(Builder $query): Role
     {
         return $query->whereRoleCode(self::VISITOR)->first();
     }
 
     /**
      * The "booted" method of the model.
-     *
-     * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         static::deleted(function (Role $role) {
             Authorization::whereRoleCode($role->role_code)->delete();

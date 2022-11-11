@@ -52,17 +52,18 @@ class User extends Authenticatable implements Auditable
         return $this->hasOne(Authorization::class);
     }
 
-    public function setPasswordAttribute($value)
+    /**
+     * Hash password before set
+     */
+    public function setPasswordAttribute($value): string
     {
         return $this->attributes['password'] = Hash::make($value);
     }
 
     /**
      * The "booted" method of the model.
-     *
-     * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         static::deleted(function (User $user) {
             Authorization::whereUserId($user->id)->delete();

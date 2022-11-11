@@ -13,8 +13,16 @@ class Authorization extends Model implements Auditable
     use HasFactory, SoftDeletes;
     use \OwenIt\Auditing\Auditable;
 
+    /**
+     * @var string
+     */
     protected $table = 'authorizations';
 
+    /**
+     * The attributes that are mass assignable.
+     * 
+     * @var array<string>
+     */
     protected $fillable = [
         'user_id',
         'role_code',

@@ -8,10 +8,8 @@ class AuthorizationsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +19,7 @@ class AuthorizationsRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return match(request()->method()){
             'GET' => match(request()->route()->getName()){
@@ -42,7 +40,10 @@ class AuthorizationsRequest extends FormRequest
         };
     }
 
-    public function prepareForValidation()
+    /**
+     * Prepare for validation before the validation rules
+     */
+    public function prepareForValidation(): void
     {
         match(request()->method()){
             'GET' => match(request()->route()->getName()){

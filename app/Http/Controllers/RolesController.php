@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 
 class RolesController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         try {
             $roles = Role::select('id', 'role_name', 'role_code', 'created_at')->paginate(10);

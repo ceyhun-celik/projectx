@@ -8,10 +8,8 @@ class AuditsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,14 +19,17 @@ class AuditsRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'search' => 'nullable|string'
         ];
     }
 
-    public function prepareForValidation()
+    /**
+     * Prepare for validation before the validation rules
+     */
+    public function prepareForValidation(): void
     {
         match(request()->method()){
             'GET' => $this->merge([

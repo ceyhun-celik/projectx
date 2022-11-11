@@ -4,17 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuditsRequest;
 use App\Models\Audit;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 
 class AuditsController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param  \App\Http\Requests\AuditsRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function index(AuditsRequest $request)
+    public function index(AuditsRequest $request): View
     {
         $this->authorize('viewAny', Audit::class);
 
@@ -46,11 +44,8 @@ class AuditsController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): View
     {
         $this->authorize('view', Audit::class);
 

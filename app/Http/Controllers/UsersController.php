@@ -5,17 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UsersRequest;
 use App\Models\Audit;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param  \App\Http\Requests\UsersRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function index(UsersRequest $request)
+    public function index(UsersRequest $request): View
     {
         $this->authorize('viewAny', User::class);
 
@@ -40,10 +39,8 @@ class UsersController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         $this->authorize('create', User::class);
 
@@ -52,11 +49,8 @@ class UsersController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\UsersRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(UsersRequest $request)
+    public function store(UsersRequest $request): RedirectResponse
     {
         $this->authorize('create', User::class);
 
@@ -70,11 +64,8 @@ class UsersController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id): View
     {
         $this->authorize('view', User::class);
 
@@ -88,11 +79,8 @@ class UsersController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id): View
     {
         $this->authorize('update', User::class);
 
@@ -106,12 +94,8 @@ class UsersController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UsersRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(UsersRequest $request, $id)
+    public function update(UsersRequest $request, int $id): RedirectResponse
     {
         $this->authorize('update', User::class);
 
@@ -131,11 +115,8 @@ class UsersController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $this->authorize('delete', User::class);
 
@@ -149,12 +130,8 @@ class UsersController extends Controller
 
     /**
      * Display the watch of specified resource.
-     *
-     * @param  int  $id
-     * @param  \App\Http\Requests\UsersRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function watch(UsersRequest $request, $id)
+    public function watch(UsersRequest $request, int $id): View
     {
         $this->authorize('view', User::class);
 
@@ -181,12 +158,8 @@ class UsersController extends Controller
 
     /**
      * Display the audits of specified resource.
-     *
-     * @param  int  $id
-     * @param  \App\Http\Requests\UsersRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function audits(UsersRequest $request, $id)
+    public function audits(UsersRequest $request, int $id): View
     {
         $this->authorize('view', User::class);
         

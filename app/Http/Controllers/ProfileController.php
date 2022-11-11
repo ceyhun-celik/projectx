@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
+use Illuminate\Contracts\View\View;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('pages.profile.index');
     }
@@ -20,7 +19,6 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\ProfileRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProfileRequest $request)
