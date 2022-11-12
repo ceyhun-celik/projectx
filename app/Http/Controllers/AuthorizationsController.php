@@ -7,8 +7,10 @@ use App\Models\Audit;
 use App\Models\Authorization;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class AuthorizationsController extends Controller
@@ -89,7 +91,7 @@ class AuthorizationsController extends Controller
         $this->authorize('view', Authorization::class);
 
         try {
-            $authorization = Authorization::select('id', 'user_id', 'role_code', 'status', 'created_at')->find($id);
+            $authorization = Authorization::select('id', 'user_id', 'role_code', 'status', 'language', 'created_at')->find($id);
             return view('pages.authorizations.show', compact('authorization'));
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);
@@ -104,7 +106,7 @@ class AuthorizationsController extends Controller
         $this->authorize('update', Authorization::class);
 
         try {
-            $authorization = Authorization::select('id', 'user_id', 'role_code', 'status')->find($id);
+            $authorization = Authorization::select('id', 'user_id', 'role_code', 'status', 'language')->find($id);
             $roles = Role::select('id', 'role_name', 'role_code')->orderBy('role_name')->get();
             return view('pages.authorizations.edit', compact('authorization', 'roles'));
         } catch (\Throwable $th) {
@@ -118,6 +120,11 @@ class AuthorizationsController extends Controller
     public function update(AuthorizationsRequest $request, int $id): RedirectResponse
     {
         $this->authorize('update', Authorization::class);
+
+        # update language if authorized user is update themself
+        if(Auth::user()->id == Authorization::find($id)->user_id){
+            Session::put('language', $request->language);
+        }
 
         try {
             Authorization::find($id)->update($request->validated());

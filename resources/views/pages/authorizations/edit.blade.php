@@ -32,12 +32,12 @@
                             <x-select name="role_code">
                                 @forelse ($roles as $role)
                                     @if ($loop->first)
-                                        <option value="">{{ __('-- Select --') }}</option>
+                                        <option value="">-- {{ __('Select') }} --</option>
                                     @endif
 
-                                    <option {{ old('role_code') ?? $authorization->role_code == $role->role_code ? 'selected' : '' }} value="{{ $role->role_code }}">{{ $role->role_name }}</option>
+                                    <option {{ old('role_code') ?? $authorization->role_code == $role->role_code ? 'selected' : '' }} value="{{ $role->role_code }}">{{ __($role->role_name) }}</option>
                                 @empty
-                                    <option value="">No result found</option>
+                                    <option value="">{{ __('No record found') }}</option>
                                 @endforelse
                             </x-select>
 
@@ -49,12 +49,37 @@
                             <x-input-label for="status" :value="__('Status')" />
 
                             <x-select name="status">
-                                <option value="">{{ __('-- Select --') }}</option>
-                                <option {{ old('status') ?? $authorization->status == 'active' ? 'selected' : '' }} value="active">{{ __('Active') }}</option>
-                                <option {{ old('status') ?? $authorization->status == 'banned' ? 'selected' : '' }} value="banned">{{ __('Banned') }}</option>
+                                @forelse (\App\Enums\Authorizations\Statuses::cases() as $status)
+                                    @if ($loop->first)
+                                        <option value="">-- {{ __('Select') }} --</option>
+                                    @endif
+                                    
+                                    <option {{ old('status') ?? $authorization->status == $status->value ? 'selected' : '' }} value="{{ $status->value }}">{{ __($status->value) }}</option>
+                                @empty
+                                    <option value="">{{ __('No record found') }}</option>
+                                @endforelse
                             </x-select>
 
                             <x-input-error :messages="$errors->get('status')" class="mt-2" />
+                        </div>
+
+                        <!-- Language -->
+                        <div class="mb-4">
+                            <x-input-label for="language" :value="__('Language')" />
+
+                            <x-select name="language">
+                                @forelse (\App\Enums\Authorizations\Languages::cases() as $language)
+                                    @if ($loop->first)
+                                        <option value="">-- {{ __('Select') }} --</option>
+                                    @endif
+                                    
+                                    <option {{ old('language') ?? $authorization->language == $language->value ? 'selected' : '' }} value="{{ $language->value }}">{{ __($language->value) }}</option>
+                                @empty
+                                    <option value="">{{ __('No record found') }}</option>
+                                @endforelse
+                            </x-select>
+
+                            <x-input-error :messages="$errors->get('language')" class="mt-2" />
                         </div>
 
                         <!-- Button -->

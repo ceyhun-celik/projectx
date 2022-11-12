@@ -50,13 +50,19 @@
                     <!-- Role Name -->
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('Role Name') }}</p>
-                        <p class="text-gray-800">{{ $authorization->role->role_name }}</p>
+                        <p class="text-gray-800">{{ __($authorization->role->role_name) }}</p>
                     </div>
 
                     <!-- Status -->
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('Status') }}</p>
-                        <p class="text-gray-800">{{ ucfirst($authorization->status) }}</p>
+                        <p class="text-gray-800">{{ __($authorization->status) }}</p>
+                    </div>
+
+                    <!-- Languages -->
+                    <div class="mb-4">
+                        <p class="font-semibold">{{ __('Language') }}</p>
+                        <p class="text-gray-800">{{ __($authorization->language) }}</p>
                     </div>
 
                     <!-- Created At -->

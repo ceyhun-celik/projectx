@@ -30,6 +30,8 @@
     "Auditable Type": "Model Türü",
     "Auditable ID": "Model ID",
     "IP Address": "IP Adresi",
+    "Password" : "Parola",
+    "Confirm Password": "Parola doğrula",
 
     "Create": "Oluştur",
     "Search": "Ara",
@@ -41,6 +43,15 @@
     "Update": "Güncelle",
     "Watch": "İzle",
     "Back": "Geri Dön",
+    
+    "Root": "Kök",
+    "Visitor": "Ziyaretçi",
 
+    "active": "Aktif",
+    "banned": "Banlı",
+    "tr": "Türkçe",
+    "en": "İngilizce",
+
+    "Select": "Seçiniz",
     "No record found": "Kayıt bulunamadı"
 }

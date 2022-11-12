@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\Authorizations\Languages;
+use App\Enums\Authorizations\Statuses;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('role_code');
-            $table->enum('status', ['active', 'banned'])->default('active');
-            $table->enum('language', ['tr', 'en'])->default('tr');
+            $table->enum('status', array_column(Statuses::cases(), 'value'))->default(Statuses::ACTIVE->value);
+            $table->enum('language', array_column(Languages::cases(), 'value'))->default(Languages::TURKISH->value);
             $table->timestamps();
             $table->softDeletes();
         });
