@@ -37,6 +37,7 @@
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Name') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Role Name') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Status') }}</th>
+                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Language') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Created At') }}</th>
                                 <th></th>
                             </tr>
@@ -48,6 +49,7 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $authorization->user->name }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $authorization->role->role_name }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ ucfirst($authorization->status) }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ strtoupper($authorization->language) }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($authorization->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
                                     <td>
                                         <div class="flex items-center">

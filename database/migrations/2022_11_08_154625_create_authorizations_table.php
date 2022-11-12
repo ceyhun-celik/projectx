@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('role_code');
             $table->enum('status', ['active', 'banned'])->default('active');
+            $table->enum('language', ['tr', 'en'])->default('tr');
             $table->timestamps();
             $table->softDeletes();
         });

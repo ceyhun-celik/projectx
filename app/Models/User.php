@@ -65,7 +65,13 @@ class User extends Authenticatable implements Auditable
      */
     protected static function booted(): void
     {
-        static::deleted(function (User $user) {
+        static::created(function (User $user): void
+        {
+            Authorization::create(['user_id' => $user->id, 'role_code' => Role::visitor()->role_code]);
+        });
+
+        static::deleted(function (User $user): void
+        {
             Authorization::whereUserId($user->id)->delete();
         });
     }

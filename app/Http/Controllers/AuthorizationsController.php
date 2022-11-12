@@ -24,7 +24,7 @@ class AuthorizationsController extends Controller
         extract($request);
 
         try {
-            $authorizations = Authorization::select('id', 'user_id', 'role_code', 'status', 'created_at')
+            $authorizations = Authorization::select('id', 'user_id', 'role_code', 'status', 'language', 'created_at')
                 ->with([
                     'user' => fn($user) => $user->select('id', 'name'),
                     'role' => fn($role) => $role->select('id', 'role_code', 'role_name')
