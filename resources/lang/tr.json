@@ -18,6 +18,7 @@
     "Authorization Audits": "Yetki Denetimleri",
     "Audits": "Denetimler",
     "Show Audit": "Denetim Göster",
+
     "Role Name": "Rol Adı",
     "Role Code": "Rol Kodu",
     "Created At": "Oluşturulma Tarihi",
@@ -25,6 +26,11 @@
     "Email": "E-Posta",
     "Status": "Durum",
     "Language": "Dil",
+    "Event": "Olay",
+    "Auditable Type": "Model Türü",
+    "Auditable ID": "Model ID",
+    "IP Address": "IP Adresi",
+
     "Create": "Oluştur",
     "Search": "Ara",
     "Show": "Göster",
@@ -35,5 +41,6 @@
     "Update": "Güncelle",
     "Watch": "İzle",
     "Back": "Geri Dön",
+
     "No record found": "Kayıt bulunamadı"
 }

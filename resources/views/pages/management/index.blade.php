@@ -11,29 +11,33 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!-- Roles -->
                     @can('root')
-                        <a href="{{ route('roles.index') }}" class="block group mb-4">
-                            <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ __('Roles') }}</span></p>
+                        <a href="{{ route('roles.index') }}" class="group block mb-4 text-gray-600 group-hover:text-black">
+                            <span class="mr-1">•</span>
+                            <span class="group-hover:underline">{{ __('Roles') }}</span>
                         </a>
                     @endcan
 
                     <!-- Users -->
                     @can('root')
-                        <a href="{{ route('users.index') }}" class="block group mb-4">
-                            <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ __('Users') }}</span></p>
+                        <a href="{{ route('users.index') }}" class="group block mb-4 text-gray-600 group-hover:text-black">
+                            <span class="mr-1">•</span>
+                            <span class="group-hover:underline">{{ __('Users') }}</span>
                         </a>
                     @endcan
 
                     <!-- Authorizations -->
                     @can('root')
-                        <a href="{{ route('authorizations.index') }}" class="block group mb-4">
-                            <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ __('Authorizations') }}</span></p>
+                        <a href="{{ route('authorizations.index') }}" class="group block mb-4 text-gray-600 group-hover:text-black">
+                            <span class="mr-1">•</span>
+                            <span class="group-hover:underline">{{ __('Authorizations') }}</span>
                         </a>
                     @endcan
 
                     <!-- Audits -->
                     @can('root')
-                        <a href="{{ route('audits.index') }}" class="block group">
-                            <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ __('Audits') }}</span></p>
+                        <a href="{{ route('audits.index') }}" class="group block text-gray-600 group-hover:text-black">
+                            <span class="mr-1">•</span>
+                            <span class="group-hover:underline">{{ __('Audits') }}</span>
                         </a>
                     @endcan
                 </div>
