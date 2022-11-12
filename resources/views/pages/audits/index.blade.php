@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ 'Audits' }}
+            {{ __('Audits') }}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
             <!-- Search -->
             <form action="{{ route('audits.index') }}" method="GET" class="flex justify-end mb-4">
                 <div class="flex items-center">
-                    <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Search.." />
+                    <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="{{ __('Search') }}.." />
                 </div>
             </form>
 

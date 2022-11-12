@@ -25,7 +25,7 @@ use App\Http\Controllers\{
 
 Route::view('/', 'welcome');
 
-Route::middleware(['auth', 'verified', 'can:status'])->group(function(){
+Route::middleware(['auth', 'verified', 'can:status', 'locale'])->group(function(){
     # Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

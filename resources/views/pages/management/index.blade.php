@@ -13,7 +13,6 @@
                     @can('root')
                         <a href="{{ route('roles.index') }}" class="block group mb-4">
                             <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ __('Roles') }}</span></p>
-                            <p class="text-sm text-gray-500 group-hover:text-gray-800">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, assumenda nostrum. Minus quaerat ex accusantium doloremque laudantium totam, vero nobis provident ipsa libero illum non, aut, commodi ullam? Sapiente, labore?</p>
                         </a>
                     @endcan
 
@@ -21,7 +20,6 @@
                     @can('root')
                         <a href="{{ route('users.index') }}" class="block group mb-4">
                             <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ __('Users') }}</span></p>
-                            <p class="text-sm text-gray-500 group-hover:text-gray-800">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, assumenda nostrum. Minus quaerat ex accusantium doloremque laudantium totam, vero nobis provident ipsa libero illum non, aut, commodi ullam? Sapiente, labore?</p>
                         </a>
                     @endcan
 
@@ -29,15 +27,13 @@
                     @can('root')
                         <a href="{{ route('authorizations.index') }}" class="block group mb-4">
                             <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ __('Authorizations') }}</span></p>
-                            <p class="text-sm text-gray-500 group-hover:text-gray-800">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, assumenda nostrum. Minus quaerat ex accusantium doloremque laudantium totam, vero nobis provident ipsa libero illum non, aut, commodi ullam? Sapiente, labore?</p>
                         </a>
                     @endcan
 
                     <!-- Audits -->
                     @can('root')
                         <a href="{{ route('audits.index') }}" class="block group">
-                            <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ 'Audits' }}</span></p>
-                            <p class="text-sm text-gray-500 group-hover:text-gray-800">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, assumenda nostrum. Minus quaerat ex accusantium doloremque laudantium totam, vero nobis provident ipsa libero illum non, aut, commodi ullam? Sapiente, labore?</p>
+                            <p class="text-gray-600 group-hover:text-black">• <span class="group-hover:underline">{{ __('Audits') }}</span></p>
                         </a>
                     @endcan
                 </div>

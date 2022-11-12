@@ -11,7 +11,7 @@
                 <!-- Search -->
                 <form action="{{ route('users.watch', $id) }}" method="GET" class="flex justify-end">
                     <div class="flex items-center">
-                        <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="Search.." />
+                        <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="{{ __('Search') }}.." />
                     </div>
                 </form>
 

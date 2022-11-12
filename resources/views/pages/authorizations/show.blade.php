@@ -28,7 +28,7 @@
                 <!-- Button:Audits -->
                 <a href="{{ route('authorizations.audits', $authorization->id) }}">
                     <x-primary-button>
-                        {{ 'Audits' }}
+                        {{ __('Audits') }}
                     </x-primary-button>
                 </a>
             </div>

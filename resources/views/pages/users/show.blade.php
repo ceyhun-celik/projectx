@@ -35,7 +35,7 @@
                 <!-- Button:Audits -->
                 <a href="{{ route('users.audits', $user->id) }}">
                     <x-primary-button>
-                        {{ 'Audits' }}
+                        {{ __('Audits') }}
                     </x-primary-button>
                 </a>
             </div>
