@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Roles\RoleCodes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,9 +28,6 @@ class Role extends Model
         'role_code'
     ];
 
-    public const ROOT = 'root';
-    public const VISITOR = 'visitor';
-
     public function authorization(): HasMany
     {
         return $this->hasMany(Authorization::class, 'role_code', 'role_code');
@@ -40,7 +38,7 @@ class Role extends Model
      */
     public function scopeRoot(Builder $query): Role
     {
-        return $query->whereRoleCode(self::ROOT)->first();
+        return $query->whereRoleCode(RoleCodes::ROOT->value)->first();
     }
 
     /**
@@ -48,7 +46,7 @@ class Role extends Model
      */
     public function scopeVisitor(Builder $query): Role
     {
-        return $query->whereRoleCode(self::VISITOR)->first();
+        return $query->whereRoleCode(RoleCodes::VISITOR->value)->first();
     }
 
     /**

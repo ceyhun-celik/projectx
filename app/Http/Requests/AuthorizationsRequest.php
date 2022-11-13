@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enums\Authorizations\Languages;
 use App\Enums\Authorizations\Statuses;
-use App\Models\Role;
+use App\Enums\Roles\RoleCodes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
@@ -25,11 +25,6 @@ class AuthorizationsRequest extends FormRequest
      */
     public function rules(): array
     {
-        # get role codes if request method is POST or PUT
-        if(in_array(request()->method(), ['POST', 'PUT'])){
-            $role_codes = implode(',', Role::pluck('role_code')->toArray());
-        }
-        
         return match(request()->method()){
             'GET' => match(request()->route()->getName()){
                 'authorizations.index', 'authorizations.audits' => [
@@ -39,11 +34,11 @@ class AuthorizationsRequest extends FormRequest
             },
             'POST' => [
                 'user_id' => 'required|integer',
-                'role_code' => "required|string|in:{$role_codes}",
+                'role_code' => [new Enum(RoleCodes::class)],
                 'language' => [new Enum(Languages::class)]
             ],
             'PUT' => [
-                'role_code' => "required|string|in:{$role_codes}",
+                'role_code' =>[new Enum(RoleCodes::class)],
                 'status' => [new Enum(Statuses::class)],
                 'language' => [new Enum(Languages::class)]
             ],
