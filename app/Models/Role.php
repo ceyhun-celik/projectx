@@ -24,7 +24,6 @@ class Role extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'role_name',
         'role_code'
     ];
 

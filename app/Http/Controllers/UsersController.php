@@ -129,6 +129,63 @@ class UsersController extends Controller
     }
 
     /**
+     * Display a listing of the trash resource.
+     */
+    public function trash(UsersRequest $request)
+    {
+        $this->authorize('trash', User::class);
+
+        $request = $request->validated();
+        extract($request);
+
+        try {
+            $users = User::select('id', 'name', 'email', 'created_at', 'deleted_at')
+                ->when($search, function($query, $search){
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                })
+                ->orderBy('name')
+                ->onlyTrashed()
+                ->paginate(10)
+                ->appends($request);
+
+            return view('pages.users.trash', compact('users'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
+    }
+
+    /**
+     * Display the specified deleted resource.
+     */
+    public function deleted(int $id): View
+    {
+        $this->authorize('trash', User::class);
+
+        try {
+            $user = User::select('id', 'name', 'email', 'created_at', 'deleted_at')->onlyTrashed()->find($id);
+            return view('pages.users.deleted', compact('user'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
+    }
+
+    /**
+     * Restore the specified resource in storage.
+     */
+    public function restore(int $id): RedirectResponse
+    {
+        $this->authorize('restore', User::class);
+
+        try {
+            User::onlyTrashed()->find($id)->restore();
+            return redirect()->back()->with('success', __('Restored'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
+    }
+
+    /**
      * Display the watch of specified resource.
      */
     public function watch(UsersRequest $request, int $id): View

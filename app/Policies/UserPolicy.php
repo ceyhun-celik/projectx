@@ -51,11 +51,19 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view any models but trashed records.
+     */
+    public function trash(User $user): bool
+    {
+        return $user->authorization->role_code === Role::root()->role_code;
+    }
+
+    /**
      * Determine whether the user can restore the model.
      */
     public function restore(User $user): bool
     {
-        return false;
+        return $user->authorization->role_code === Role::root()->role_code;
     }
 
     /**

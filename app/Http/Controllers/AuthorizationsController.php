@@ -29,7 +29,7 @@ class AuthorizationsController extends Controller
             $authorizations = Authorization::select('id', 'user_id', 'role_code', 'status', 'language', 'created_at')
                 ->with([
                     'user' => fn($user) => $user->select('id', 'name'),
-                    'role' => fn($role) => $role->select('id', 'role_code', 'role_name')
+                    'role' => fn($role) => $role->select('id', 'role_code')
                 ])
                 ->when($search, function($query, $search){
                     $query->whereHas('user', function($user) use($search){
@@ -37,7 +37,8 @@ class AuthorizationsController extends Controller
                     });
                 })
                 ->orderByDesc('id')
-                ->paginate(10);
+                ->paginate(10)
+                ->appends($request);
 
             return view('pages.authorizations.index', compact('authorizations'));
         } catch (\Throwable $th) {
@@ -58,7 +59,7 @@ class AuthorizationsController extends Controller
                 ->orderBy('name')
                 ->get();
             
-            $roles = Role::select('id', 'role_name', 'role_code')->orderBy('role_name')->get();
+            $roles = Role::select('id', 'role_code')->orderBy('role_code')->get();
             
             return view('pages.authorizations.create', compact('users', 'roles'));
         } catch (\Throwable $th) {
@@ -105,7 +106,7 @@ class AuthorizationsController extends Controller
 
         try {
             $authorization = Authorization::select('id', 'user_id', 'role_code', 'status', 'language')->find($id);
-            $roles = Role::select('id', 'role_name', 'role_code')->orderBy('role_name')->get();
+            $roles = Role::select('id', 'role_code')->orderBy('role_code')->get();
             return view('pages.authorizations.edit', compact('authorization', 'roles'));
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);
@@ -161,7 +162,7 @@ class AuthorizationsController extends Controller
             $authorizations = Authorization::select('id', 'user_id', 'role_code', 'status', 'language', 'created_at', 'deleted_at')
                 ->with([
                     'user' => fn ($user) => $user->select('id', 'name')->withTrashed(),
-                    'role' => fn ($role) => $role->select('id', 'role_name', 'role_code')->withTrashed()
+                    'role' => fn ($role) => $role->select('id', 'role_code')->withTrashed()
                 ])
                 ->when($search, function($query, $search){
                     $query->whereHas('user', function($user) use($search){
@@ -170,7 +171,8 @@ class AuthorizationsController extends Controller
                 })
                 ->orderByDesc('deleted_at')
                 ->onlyTrashed()
-                ->paginate(10);
+                ->paginate(10)
+                ->appends($request);
 
             return view('pages.authorizations.trash', compact('authorizations'));
         } catch (\Throwable $th) {
@@ -189,7 +191,7 @@ class AuthorizationsController extends Controller
             $authorization = Authorization::select('id', 'user_id', 'role_code', 'status', 'language', 'created_at', 'deleted_at')
                 ->with([
                     'user' => fn ($user) => $user->select('id', 'name')->withTrashed(),
-                    'role' => fn ($role) => $role->select('id', 'role_name', 'role_code')->withTrashed()
+                    'role' => fn ($role) => $role->select('id', 'role_code')->withTrashed()
                 ])
                 ->onlyTrashed()
                 ->find($id);

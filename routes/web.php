@@ -43,12 +43,15 @@ Route::middleware(['auth', 'verified', 'can:status', 'locale'])->group(function(
         Route::get('roles', [RolesController::class, 'index'])->name('roles.index');
 
         # Users
-        Route::resource('users', UsersController::class);
-        Route::prefix('users')->name('users.')->group(function(){
-            Route::get('{id}/watch', [UsersController::class, 'watch'])->name('watch');
-            Route::get('{id}/audits', [UsersController::class, 'audits'])->name('audits');
+        Route::controller(UsersController::class)->prefix('users')->name('users.')->group(function(){
+            Route::get('trash', 'trash')->name('trash');
+            Route::get('{id}/deleted', 'deleted')->name('deleted');
+            Route::put('{id}/restore', 'restore')->name('restore');
+            Route::get('{id}/watch', 'watch')->name('watch');
+            Route::get('{id}/audits', 'audits')->name('audits');
         });
-
+        Route::resource('users', UsersController::class);
+        
         # Authorizations
         Route::controller(AuthorizationsController::class)->prefix('authorizations')->name('authorizations.')->group(function(){
             Route::get('trash', 'trash')->name('trash');

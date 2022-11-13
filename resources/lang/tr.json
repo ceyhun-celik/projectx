@@ -6,6 +6,7 @@
     "Management": "Yönetim",
     "Roles": "Roller",
     "Users": "Kullanıcılar",
+    "Deleted User": "Silinen Kullanıcı",
     "Show User": "Kullanıcı Göster",
     "Create User": "Kullanıcı Oluştur",
     "Edit User": "Kullanıcı Düzenle",
@@ -50,9 +51,12 @@
     "Trash": "Çöp Kutusu",
     "Restore": "Kurtar",
     
-    "Root": "Kök",
-    "Visitor": "Ziyaretçi",
+    "root": "Kök",
+    "visitor": "Ziyaretçi",
+    "created": "Oluşturuldu",
     "updated": "Güncellendi",
+    "deleted": "Silindi",
+    "restored": "Kurtarıldı",
 
     "active": "Aktif",
     "banned": "Banlı",

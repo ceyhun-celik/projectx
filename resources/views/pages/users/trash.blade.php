@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Authorizations Trash') }}
+            {{ __('Users Trash') }}
         </h2>
     </x-slot>
 
@@ -12,16 +12,16 @@
 
             <div class="flex items-center justify-end gap-3 mb-4">
                 <!-- Search -->
-                <form action="{{ route('authorizations.trash') }}" method="GET" class="flex justify-end">
+                <form action="{{ route('users.trash') }}" method="GET" class="flex justify-end">
                     <div class="flex items-center">
                         <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="{{ __('Search') }}.." />
                     </div>
                 </form>
 
                 <span>|</span>
-
+    
                 <!-- Button:Trash -->
-                <a href="{{ route('authorizations.index') }}">
+                <a href="{{ route('users.index') }}">
                     <x-primary-button>
                         {{ __('Back') }}
                     </x-primary-button>
@@ -35,38 +35,41 @@
                             <tr>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">#</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Name') }}</th>
-                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Role Name') }}</th>
-                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Status') }}</th>
-                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Language') }}</th>
+                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Email') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Created At') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Deleted At') }}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($authorizations as $authorization)
+                            @forelse ($users as $user)
                                 <tr class="{{$loop->odd ? 'bg-white' : 'bg-gray-100'}}  border-b">
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $authorization->id }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $authorization->user->name }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __($authorization->role->role_code) }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __($authorization->status) }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __($authorization->language) }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($authorization->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($authorization->deleted_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $user->id }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($user->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($user->deleted_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
                                     <td>
                                         <div class="flex items-center">
                                             <!-- Button:Show -->
-                                            <a href="{{ route('authorizations.deleted', $authorization->id) }}">
+                                            <a href="{{ route('users.deleted', $user->id) }}">
                                                 <x-primary-button class="ml-3">
                                                     {{ __('Show') }}
                                                 </x-primary-button>
                                             </a>
+
+                                            <!-- Button:Restore -->
+                                            <form action="{{ route('users.restore', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('PUT')
+                                                <x-primary-button class="ml-3">
+                                                    {{ __('Restore') }}
+                                                </x-primary-button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                             <tr class="bg-white border-b">
-                                <td colspan="8" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __('No record found') }}</td>
+                                <td colspan="6" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __('No record found') }}</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -74,7 +77,7 @@
                 </div>
             </div>
 
-            {{ $authorizations->render() }}
+            {{ $users->render() }}
         </div>
     </div>
 </x-app-layout>

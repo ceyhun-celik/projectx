@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Deleted Authorization') }}
+            {{ __('Deleted User') }}
         </h2>
     </x-slot>
 
@@ -12,7 +12,7 @@
 
             <div class="mb-4 flex justify-end">
                 <!-- Button:Trash -->
-                <a href="{{ route('authorizations.trash') }}">
+                <a href="{{ route('users.trash') }}">
                     <x-primary-button>
                         {{ __('Trash') }}
                     </x-primary-button>
@@ -24,43 +24,31 @@
                     <!-- ID -->
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('ID') }}</p>
-                        <p class="text-gray-800">{{ $authorization->id }}</p>
+                        <p class="text-gray-800">{{ $user->id }}</p>
                     </div>
-                    
+
                     <!-- Name -->
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('Name') }}</p>
-                        <p class="text-gray-800">{{ $authorization->user->name }}</p>
+                        <p class="text-gray-800">{{ $user->name }}</p>
                     </div>
 
-                    <!-- Role Name -->
+                    <!-- Email -->
                     <div class="mb-4">
-                        <p class="font-semibold">{{ __('Role Name') }}</p>
-                        <p class="text-gray-800">{{ __($authorization->role->role_code) }}</p>
-                    </div>
-
-                    <!-- Status -->
-                    <div class="mb-4">
-                        <p class="font-semibold">{{ __('Status') }}</p>
-                        <p class="text-gray-800">{{ __($authorization->status) }}</p>
-                    </div>
-
-                    <!-- Languages -->
-                    <div class="mb-4">
-                        <p class="font-semibold">{{ __('Language') }}</p>
-                        <p class="text-gray-800">{{ __($authorization->language) }}</p>
+                        <p class="font-semibold">{{ __('Email') }}</p>
+                        <p class="text-gray-800">{{ $user->email }}</p>
                     </div>
 
                     <!-- Created At -->
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('Created At') }}</p>
-                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($authorization->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</p>
+                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($user->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</p>
                     </div>
 
                     <!-- Deleted At -->
                     <div class="">
                         <p class="font-semibold">{{ __('Deleted At') }}</p>
-                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($authorization->deleted_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</p>
+                        <p class="text-gray-800">{{ \Carbon\Carbon::parse($user->deleted_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</p>
                     </div>
                 </div>
             </div>

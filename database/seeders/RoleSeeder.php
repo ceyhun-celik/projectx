@@ -17,11 +17,9 @@ class RoleSeeder extends Seeder
 
         Role::insert([
             [
-                'role_name' => 'Root',
                 'role_code' => 'root'
             ],
             [
-                'role_name' => 'Visitor',
                 'role_code' => 'visitor'
             ]
         ]);

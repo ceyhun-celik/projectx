@@ -23,7 +23,7 @@ class UsersRequest extends FormRequest
     {
         return match(request()->method()){
             'GET' => match(request()->route()->getName()){
-                'users.index', 'users.watch', 'users.audits' => [
+                'users.index', 'users.trash', 'users.watch', 'users.audits' => [
                     'search' => 'nullable|string'
                 ],
                 default => []
@@ -48,7 +48,7 @@ class UsersRequest extends FormRequest
     {
         match(request()->method()){
             'GET' => match(request()->route()->getName()){
-                'users.index', 'users.watch', 'users.audits' => $this->merge([
+                'users.index', 'users.trash', 'users.watch', 'users.audits' => $this->merge([
                     'search' => $this->search ?? null
                 ]),
                 default => []

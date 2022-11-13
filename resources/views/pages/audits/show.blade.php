@@ -33,7 +33,7 @@
                     <!-- Event -->
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('Event') }}</p>
-                        <p class="text-gray-800">{{ ucfirst($audit->event) }}</p>
+                        <p class="text-gray-800">{{ __($audit->event) }}</p>
                     </div>
 
                     <!-- Auditable Type -->

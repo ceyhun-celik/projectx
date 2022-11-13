@@ -35,7 +35,7 @@
                                         <option value="">-- {{ __('Select') }} --</option>
                                     @endif
 
-                                    <option {{ old('role_code') ?? $authorization->role_code == $role->role_code ? 'selected' : '' }} value="{{ $role->role_code }}">{{ __($role->role_name) }}</option>
+                                    <option {{ old('role_code') ?? $authorization->role_code == $role->role_code ? 'selected' : '' }} value="{{ $role->role_code }}">{{ __($role->role_code) }}</option>
                                 @empty
                                     <option value="">{{ __('No record found') }}</option>
                                 @endforelse

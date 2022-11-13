@@ -50,7 +50,7 @@
                     <!-- Role Name -->
                     <div class="mb-4">
                         <p class="font-semibold">{{ __('Role Name') }}</p>
-                        <p class="text-gray-800">{{ __($authorization->role->role_name) }}</p>
+                        <p class="text-gray-800">{{ __($authorization->role->role_code) }}</p>
                     </div>
 
                     <!-- Status -->

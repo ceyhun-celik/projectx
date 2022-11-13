@@ -26,6 +26,13 @@
                         {{ __('Create') }}
                     </x-primary-button>
                 </a>
+
+                <!-- Button:Trash -->
+                <a href="{{ route('users.trash') }}">
+                    <x-primary-button>
+                        {{ __('Trash') }}
+                    </x-primary-button>
+                </a>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
