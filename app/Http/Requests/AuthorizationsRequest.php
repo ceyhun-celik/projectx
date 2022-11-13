@@ -27,7 +27,7 @@ class AuthorizationsRequest extends FormRequest
     {
         return match(request()->method()){
             'GET' => match(request()->route()->getName()){
-                'authorizations.index', 'authorizations.audits' => [
+                'authorizations.index', 'authorizations.trash', 'authorizations.audits' => [
                     'search' => 'nullable|string'
                 ],
                 default => []
@@ -53,7 +53,7 @@ class AuthorizationsRequest extends FormRequest
     {
         match(request()->method()){
             'GET' => match(request()->route()->getName()){
-                'authorizations.index', 'authorizations.audits' => $this->merge([
+                'authorizations.index', 'authorizations.trash', 'authorizations.audits' => $this->merge([
                     'search' => $this->search ?? null
                 ]),
                 default => []

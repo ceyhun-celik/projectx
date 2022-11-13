@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Authorizations') }}
+            {{ __('Authorizations Trash') }}
         </h2>
     </x-slot>
 
@@ -12,25 +12,18 @@
 
             <div class="flex items-center justify-end gap-3 mb-4">
                 <!-- Search -->
-                <form action="{{ route('authorizations.index') }}" method="GET" class="flex justify-end">
+                <form action="{{ route('authorizations.trash') }}" method="GET" class="flex justify-end">
                     <div class="flex items-center">
                         <x-text-input id="email" class="block" type="text" name="search" :value="request()->get('search')" placeholder="{{ __('Search') }}.." />
                     </div>
                 </form>
 
                 <span>|</span>
-    
-                <!-- Button:Create -->
-                <a href="{{ route('authorizations.create') }}">
-                    <x-primary-button>
-                        {{ __('Create') }}
-                    </x-primary-button>
-                </a>
 
                 <!-- Button:Trash -->
-                <a href="{{ route('authorizations.trash') }}">
+                <a href="{{ route('authorizations.index') }}">
                     <x-primary-button>
-                        {{ __('Trash') }}
+                        {{ __('Back') }}
                     </x-primary-button>
                 </a>
             </div>
@@ -46,6 +39,7 @@
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Status') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Language') }}</th>
                                 <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Created At') }}</th>
+                                <th class="w-1 text-sm font-medium text-white px-6 py-4 whitespace-nowrap">{{ __('Deleted At') }}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -58,28 +52,15 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __($authorization->status) }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __($authorization->language) }}</td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($authorization->created_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($authorization->deleted_at)->locale(app()->getLocale())->isoFormat("Do MMM YYYY, HH:mm") }}</td>
                                     <td>
                                         <div class="flex items-center">
                                             <!-- Button:Show -->
-                                            <a href="{{ route('authorizations.show', $authorization->id) }}">
+                                            <a href="{{ route('authorizations.deleted', $authorization->id) }}">
                                                 <x-primary-button class="ml-3">
                                                     {{ __('Show') }}
                                                 </x-primary-button>
                                             </a>
-
-                                            <!-- Button:Edit -->
-                                            <a href="{{ route('authorizations.edit', $authorization->id) }}">
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Edit') }}
-                                                </x-primary-button>
-                                            </a>
-
-                                            <!-- Button:Delete -->
-                                            <form action="{{ route('authorizations.destroy', $authorization->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('DELETE')
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Delete') }}
-                                                </x-primary-button>
-                                            </form>
                                         </div>
                                     </td>
                                 </tr>

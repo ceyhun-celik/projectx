@@ -49,7 +49,7 @@
                         <!-- Event -->
                         <div class="flex mt-1">
                             <p class="mr-1 font-semibold">{{ __('Event') }}:</p>
-                            <p class="text-gray-800">{{ ucfirst($audit->event) }}</p>
+                            <p class="text-gray-800">{{ __($audit->event) }}</p>
                         </div>
 
                         <!-- Modify -->

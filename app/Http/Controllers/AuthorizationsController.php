@@ -34,11 +34,9 @@ class AuthorizationsController extends Controller
                 ->when($search, function($query, $search){
                     $query->whereHas('user', function($user) use($search){
                         $user->where('name', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('role', function($role) use($search){
-                        $role->where('role_name', 'like', "%{$search}%");
                     });
                 })
+                ->orderByDesc('id')
                 ->paginate(10);
 
             return view('pages.authorizations.index', compact('authorizations'));
@@ -144,6 +142,59 @@ class AuthorizationsController extends Controller
         try {
             Authorization::destroy($id);
             return redirect()->back()->with('success', __('Deleted'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
+    }
+
+    /**
+     * Display a listing of the trash resource.
+     */
+    public function trash(AuthorizationsRequest $request)
+    {
+        $this->authorize('trash', Authorization::class);
+
+        $request = $request->validated();
+        extract($request);
+
+        try {
+            $authorizations = Authorization::select('id', 'user_id', 'role_code', 'status', 'language', 'created_at', 'deleted_at')
+                ->with([
+                    'user' => fn ($user) => $user->select('id', 'name')->withTrashed(),
+                    'role' => fn ($role) => $role->select('id', 'role_name', 'role_code')->withTrashed()
+                ])
+                ->when($search, function($query, $search){
+                    $query->whereHas('user', function($user) use($search){
+                        $user->where('name', 'like', "%{$search}%");
+                    });
+                })
+                ->orderByDesc('deleted_at')
+                ->onlyTrashed()
+                ->paginate(10);
+
+            return view('pages.authorizations.trash', compact('authorizations'));
+        } catch (\Throwable $th) {
+            Log::channel('catch')->info($th);
+        }
+    }
+
+    /**
+     * Display the specified deleted resource.
+     */
+    public function deleted(int $id): View
+    {
+        $this->authorize('trash', Authorization::class);
+
+        try {
+            $authorization = Authorization::select('id', 'user_id', 'role_code', 'status', 'language', 'created_at', 'deleted_at')
+                ->with([
+                    'user' => fn ($user) => $user->select('id', 'name')->withTrashed(),
+                    'role' => fn ($role) => $role->select('id', 'role_name', 'role_code')->withTrashed()
+                ])
+                ->onlyTrashed()
+                ->find($id);
+
+            return view('pages.authorizations.deleted', compact('authorization'));
         } catch (\Throwable $th) {
             Log::channel('catch')->info($th);
         }

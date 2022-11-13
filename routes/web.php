@@ -50,10 +50,12 @@ Route::middleware(['auth', 'verified', 'can:status', 'locale'])->group(function(
         });
 
         # Authorizations
-        Route::resource('authorizations', AuthorizationsController::class);
-        Route::prefix('authorizations')->name('authorizations.')->group(function(){
-            Route::get('{id}/audits', [AuthorizationsController::class, 'audits'])->name('audits');
+        Route::controller(AuthorizationsController::class)->prefix('authorizations')->name('authorizations.')->group(function(){
+            Route::get('trash', 'trash')->name('trash');
+            Route::get('{id}/deleted', 'deleted')->name('deleted');
+            Route::get('{id}/audits', 'audits')->name('audits');
         });
+        Route::resource('authorizations', AuthorizationsController::class);
 
         # Audits
         Route::resource('audits', AuditsController::class)->only(['index', 'show']);
