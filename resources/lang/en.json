@@ -1,0 +1,13 @@
+{
+    "root": "Root",
+    "visitor": "Visitor",
+    "created": "Created",
+    "updated": "Updated",
+    "deleted": "Deleted",
+    "restored": "Restored",
+
+    "active": "Active",
+    "banned": "Banned",
+    "tr": "Turkish",
+    "en": "English"
+}
