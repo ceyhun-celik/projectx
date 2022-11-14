@@ -21,11 +21,13 @@
                 <span>|</span>
 
                 <!-- Button:Trash -->
-                <a href="{{ route('authorizations.index') }}">
-                    <x-primary-button>
-                        {{ __('Back') }}
-                    </x-primary-button>
-                </a>
+                @can('root_access')
+                    <a href="{{ route('authorizations.index') }}">
+                        <x-primary-button>
+                            {{ __('Back') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
@@ -56,11 +58,13 @@
                                     <td>
                                         <div class="flex items-center">
                                             <!-- Button:Show -->
-                                            <a href="{{ route('authorizations.deleted', $authorization->id) }}">
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Show') }}
-                                                </x-primary-button>
-                                            </a>
+                                            @can('root_access')
+                                                <a href="{{ route('authorizations.deleted', $authorization->id) }}">
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Show') }}
+                                                    </x-primary-button>
+                                                </a>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

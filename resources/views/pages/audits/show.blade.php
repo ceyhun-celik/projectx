@@ -9,11 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4 flex justify-end">
                 <!-- Button:List -->
-                <a href="{{ route('audits.index') }}">
-                    <x-primary-button>
-                        {{ __('List') }}
-                    </x-primary-button>
-                </a>
+                @can('root_access')
+                    <a href="{{ route('audits.index') }}">
+                        <x-primary-button>
+                            {{ __('List') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
             </div>
             
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

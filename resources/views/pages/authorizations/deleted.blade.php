@@ -12,11 +12,13 @@
 
             <div class="mb-4 flex justify-end">
                 <!-- Button:Trash -->
-                <a href="{{ route('authorizations.trash') }}">
-                    <x-primary-button>
-                        {{ __('Trash') }}
-                    </x-primary-button>
-                </a>
+                @can('root_access')
+                    <a href="{{ route('authorizations.trash') }}">
+                        <x-primary-button>
+                            {{ __('Trash') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
             </div>
             
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

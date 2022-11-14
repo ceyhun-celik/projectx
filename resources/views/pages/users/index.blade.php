@@ -21,18 +21,22 @@
                 <span>|</span>
     
                 <!-- Button:Create -->
-                <a href="{{ route('users.create') }}">
-                    <x-primary-button>
-                        {{ __('Create') }}
-                    </x-primary-button>
-                </a>
+                @can('admin_access')                    
+                    <a href="{{ route('users.create') }}">
+                        <x-primary-button>
+                            {{ __('Create') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
 
                 <!-- Button:Trash -->
-                <a href="{{ route('users.trash') }}">
-                    <x-primary-button>
-                        {{ __('Trash') }}
-                    </x-primary-button>
-                </a>
+                @can('root_access')
+                    <a href="{{ route('users.trash') }}">
+                        <x-primary-button>
+                            {{ __('Trash') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
@@ -57,32 +61,38 @@
                                     <td>
                                         <div class="flex items-center">
                                             <!-- Button:Show -->
-                                            <a href="{{ route('users.show', $user->id) }}">
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Show') }}
-                                                </x-primary-button>
-                                            </a>
+                                            @can('admin_access')
+                                                <a href="{{ route('users.show', $user->id) }}">
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Show') }}
+                                                    </x-primary-button>
+                                                </a>
+                                            @endcan
 
                                             <!-- Button:Edit -->
-                                            <a href="{{ route('users.edit', $user->id) }}">
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Edit') }}
-                                                </x-primary-button>
-                                            </a>
+                                            @can('admin_access')
+                                                <a href="{{ route('users.edit', $user->id) }}">
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Edit') }}
+                                                    </x-primary-button>
+                                                </a>
+                                            @endcan
 
                                             <!-- Button:Delete -->
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('DELETE')
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Delete') }}
-                                                </x-primary-button>
-                                            </form>
+                                            @can('admin_access')
+                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('DELETE')
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Delete') }}
+                                                    </x-primary-button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
                             @empty
-                            <tr class="bg-white border-b">
-                                <td colspan="5" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __('No record found') }}</td>
-                            </tr>
+                                <tr class="bg-white border-b">
+                                    <td colspan="5" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __('No record found') }}</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

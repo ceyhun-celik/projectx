@@ -15,7 +15,7 @@ class RolePolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return in_array($user->authorization->role_code, [Role::root()->role_code, Role::admin()->role_code]);
     }
 
     /**

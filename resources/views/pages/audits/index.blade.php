@@ -42,11 +42,13 @@
                                     <td>
                                         <div class="flex items-center">
                                             <!-- Button:Show -->
-                                            <a href="{{ route('audits.show', $audit->id) }}">
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Show') }}
-                                                </x-primary-button>
-                                            </a>
+                                            @can('root_access')
+                                                <a href="{{ route('audits.show', $audit->id) }}">
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Show') }}
+                                                    </x-primary-button>
+                                                </a>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

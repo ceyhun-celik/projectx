@@ -41,6 +41,14 @@ class Role extends Model
     }
 
     /**
+     * Where role code equal to admin
+     */
+    public function scopeAdmin(Builder $query): Role
+    {
+        return $query->whereRoleCode(RoleCodes::ADMIN->value)->first();
+    }
+
+    /**
      * Where role code equal to visitor
      */
     public function scopeVisitor(Builder $query): Role

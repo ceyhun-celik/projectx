@@ -12,18 +12,24 @@
 
             <div class="mb-4 flex justify-end">
                 <!-- Button:List -->
-                <a href="{{ route('authorizations.index') }}">
-                    <x-primary-button class="mr-1">
-                        {{ __('List') }}
-                    </x-primary-button>
-                </a>
+                @can('admin_access')
+                    <a href="{{ route('authorizations.index') }}">
+                        <x-primary-button class="mr-1">
+                            {{ __('List') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
 
                 <!-- Button:Edit -->
-                <a href="{{ route('authorizations.edit', $authorization->id) }}">
-                    <x-primary-button class="mr-1">
-                        {{ __('Edit') }}
-                    </x-primary-button>
-                </a>
+                @can('admin_access')
+                    @can('admin_access')
+                        <a href="{{ route('authorizations.edit', $authorization->id) }}">
+                            <x-primary-button class="mr-1">
+                                {{ __('Edit') }}
+                            </x-primary-button>
+                        </a>
+                    @endcan
+                @endcan
 
                 <!-- Button:Audits -->
                 <a href="{{ route('authorizations.audits', $authorization->id) }}">

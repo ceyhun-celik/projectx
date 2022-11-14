@@ -15,7 +15,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->authorization->role_code === Role::root()->role_code;
+        return in_array($user->authorization->role_code, [Role::root()->role_code, Role::admin()->role_code]);
     }
 
     /**
@@ -23,7 +23,7 @@ class UserPolicy
      */
     public function view(User $user): bool
     {
-        return $user->authorization->role_code === Role::root()->role_code;
+        return in_array($user->authorization->role_code, [Role::root()->role_code, Role::admin()->role_code]);
     }
 
     /**
@@ -31,7 +31,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->authorization->role_code === Role::root()->role_code;
+        return in_array($user->authorization->role_code, [Role::root()->role_code, Role::admin()->role_code]);
     }
 
     /**
@@ -39,7 +39,7 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        return $user->authorization->role_code === Role::root()->role_code;
+        return in_array($user->authorization->role_code, [Role::root()->role_code, Role::admin()->role_code]);
     }
 
     /**
@@ -47,7 +47,7 @@ class UserPolicy
      */
     public function delete(User $user): bool
     {
-        return $user->authorization->role_code === Role::root()->role_code;
+        return in_array($user->authorization->role_code, [Role::root()->role_code, Role::admin()->role_code]);
     }
 
     /**

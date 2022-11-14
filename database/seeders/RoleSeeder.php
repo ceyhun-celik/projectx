@@ -20,6 +20,9 @@ class RoleSeeder extends Seeder
                 'role_code' => 'root'
             ],
             [
+                'role_code' => 'admin'
+            ],
+            [
                 'role_code' => 'visitor'
             ]
         ]);

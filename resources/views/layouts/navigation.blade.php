@@ -18,7 +18,7 @@
                     </x-nav-link>
 
                     <!-- Management -->
-                    @can('root')
+                    @can('admin_access')
                         <x-nav-link :href="route('management.index')" :active="request()->routeIs(['management.*', 'roles.*', 'users.*', 'authorizations.*', 'audits.*'])">
                             {{ __('Management') }}
                         </x-nav-link>
@@ -87,7 +87,7 @@
             </x-responsive-nav-link>
 
             <!-- Management -->
-            @can('root')
+            @can('admin_access')
                 <x-responsive-nav-link :href="route('management.index')" :active="request()->routeIs(['management.*', 'roles.*', 'users.*', 'authorizations.*', 'audits.*'])">
                     {{ __('Management') }}
                 </x-responsive-nav-link>

@@ -1,5 +1,6 @@
 {
     "root": "Root",
+    "admin": "Admin",
     "visitor": "Visitor",
     "created": "Created",
     "updated": "Updated",

@@ -9,11 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4 flex justify-end">
                 <!-- Button:List -->
-                <a href="{{ route('authorizations.index') }}">
-                    <x-primary-button>
-                        {{ __('List') }}
-                    </x-primary-button>
-                </a>
+                @can('admin_access')
+                    <a href="{{ route('authorizations.index') }}">
+                        <x-primary-button>
+                            {{ __('List') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -75,12 +77,14 @@
                             <x-input-error :messages="$errors->get('language')" class="mt-2" />
                         </div>
 
-                        <!-- Button -->
-                        <div class="flex justify-end">
-                            <x-primary-button>
-                                {{ __('Save') }}
-                            </x-primary-button>
-                        </div>
+                        <!-- Button:Create -->
+                        @can('admin_access')
+                            <div class="flex justify-end">
+                                <x-primary-button>
+                                    {{ __('Save') }}
+                                </x-primary-button>
+                            </div>
+                        @endcan
                     </form>
                 </div>
             </div>

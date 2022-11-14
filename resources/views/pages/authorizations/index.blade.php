@@ -21,18 +21,22 @@
                 <span>|</span>
     
                 <!-- Button:Create -->
-                <a href="{{ route('authorizations.create') }}">
-                    <x-primary-button>
-                        {{ __('Create') }}
-                    </x-primary-button>
-                </a>
+                @can('admin_access')
+                    <a href="{{ route('authorizations.create') }}">
+                        <x-primary-button>
+                            {{ __('Create') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
 
                 <!-- Button:Trash -->
-                <a href="{{ route('authorizations.trash') }}">
-                    <x-primary-button>
-                        {{ __('Trash') }}
-                    </x-primary-button>
-                </a>
+                @can('root_access')
+                    <a href="{{ route('authorizations.trash') }}">
+                        <x-primary-button>
+                            {{ __('Trash') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
@@ -61,25 +65,31 @@
                                     <td>
                                         <div class="flex items-center">
                                             <!-- Button:Show -->
-                                            <a href="{{ route('authorizations.show', $authorization->id) }}">
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Show') }}
-                                                </x-primary-button>
-                                            </a>
+                                            @can('admin_access')
+                                                <a href="{{ route('authorizations.show', $authorization->id) }}">
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Show') }}
+                                                    </x-primary-button>
+                                                </a>
+                                            @endcan
 
                                             <!-- Button:Edit -->
-                                            <a href="{{ route('authorizations.edit', $authorization->id) }}">
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Edit') }}
-                                                </x-primary-button>
-                                            </a>
+                                            @can('admin_access')
+                                                <a href="{{ route('authorizations.edit', $authorization->id) }}">
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Edit') }}
+                                                    </x-primary-button>
+                                                </a>
+                                            @endcan
 
                                             <!-- Button:Delete -->
-                                            <form action="{{ route('authorizations.destroy', $authorization->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('DELETE')
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Delete') }}
-                                                </x-primary-button>
-                                            </form>
+                                            @can('admin_access')
+                                                <form action="{{ route('authorizations.destroy', $authorization->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('DELETE')
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Delete') }}
+                                                    </x-primary-button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

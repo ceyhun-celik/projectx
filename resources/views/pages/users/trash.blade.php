@@ -21,11 +21,13 @@
                 <span>|</span>
     
                 <!-- Button:Trash -->
-                <a href="{{ route('users.index') }}">
-                    <x-primary-button>
-                        {{ __('Back') }}
-                    </x-primary-button>
-                </a>
+                @can('root_access')
+                    <a href="{{ route('users.index') }}">
+                        <x-primary-button>
+                            {{ __('Back') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
@@ -52,25 +54,29 @@
                                     <td>
                                         <div class="flex items-center">
                                             <!-- Button:Show -->
-                                            <a href="{{ route('users.deleted', $user->id) }}">
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Show') }}
-                                                </x-primary-button>
-                                            </a>
+                                            @can('root_access')
+                                                <a href="{{ route('users.deleted', $user->id) }}">
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Show') }}
+                                                    </x-primary-button>
+                                                </a>
+                                            @endcan
 
                                             <!-- Button:Restore -->
-                                            <form action="{{ route('users.restore', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('PUT')
-                                                <x-primary-button class="ml-3">
-                                                    {{ __('Restore') }}
-                                                </x-primary-button>
-                                            </form>
+                                            @can('root_access')
+                                                <form action="{{ route('users.restore', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')"> @csrf @method('PUT')
+                                                    <x-primary-button class="ml-3">
+                                                        {{ __('Restore') }}
+                                                    </x-primary-button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
                             @empty
-                            <tr class="bg-white border-b">
-                                <td colspan="6" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __('No record found') }}</td>
-                            </tr>
+                                <tr class="bg-white border-b">
+                                    <td colspan="6" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ __('No record found') }}</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

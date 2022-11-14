@@ -18,11 +18,13 @@
                 <span>|</span>
     
                 <!-- Button:Back -->
-                <a href="{{ route('users.show', $id) }}">
-                    <x-primary-button>
-                        {{ __('Back') }}
-                    </x-primary-button>
-                </a>
+                @can('root_access')                    
+                    <a href="{{ route('users.show', $id) }}">
+                        <x-primary-button>
+                            {{ __('Back') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
             </div>
 
             @forelse ($audits as $audit)                

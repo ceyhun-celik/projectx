@@ -12,11 +12,13 @@
 
             <div class="mb-4 flex justify-end">
                 <!-- Button:List -->
-                <a href="{{ route('users.index') }}">
-                    <x-primary-button class="mr-1">
-                        {{ __('List') }}
-                    </x-primary-button>
-                </a>
+                @can('admin_access')
+                    <a href="{{ route('users.index') }}">
+                        <x-primary-button class="mr-1">
+                            {{ __('List') }}
+                        </x-primary-button>
+                    </a>
+                @endcan
 
                 <!-- Button:Edit -->
                 <a href="{{ route('users.edit', $user->id) }}">
